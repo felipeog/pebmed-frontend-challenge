@@ -1,11 +1,10 @@
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps } from "react";
 
 import styles from "./index.module.css";
 
 type TTHeadingTags = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 interface IHeadingProps extends ComponentProps<TTHeadingTags> {
   tag?: TTHeadingTags;
-  children: ReactNode;
 }
 
 function Heading({ tag = "h1", children, ...props }: IHeadingProps) {
