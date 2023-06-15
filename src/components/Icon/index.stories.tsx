@@ -17,5 +17,6 @@ export const Icons: Story = {
     name: "ArrowLeft",
     width: 32,
     height: 32,
+    fill: "tomato",
   },
 };

@@ -13,7 +13,7 @@ function Icon({ name, ...props }: IIconProps) {
     return null;
   }
 
-  return <CurrentIcon {...props} />;
+  return <CurrentIcon className={`Icon ${name}`} {...props} />;
 }
 
 export { Icon };
