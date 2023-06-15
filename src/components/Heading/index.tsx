@@ -8,12 +8,11 @@ interface IHeadingProps extends ComponentProps<TTHeadingTags> {
   children: ReactNode;
 }
 
-function Heading({ tag, children, ...props }: IHeadingProps) {
-  const currentTag = tag ?? "h1";
-  const CurrentHeading = currentTag;
+function Heading({ tag = "h1", children, ...props }: IHeadingProps) {
+  const CurrentHeading = tag;
 
   return (
-    <CurrentHeading className={`Heading ${styles[currentTag]}`} {...props}>
+    <CurrentHeading className={`Heading ${styles[tag]}`} {...props}>
       {children}
     </CurrentHeading>
   );
