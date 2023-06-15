@@ -1,11 +1,11 @@
 .button {
-  border: 0.1rem solid var(--color_primary);
+  border: var(--border_default);
   background-color: var(--color_primary);
   color: var(--color_white);
   padding: 1rem 2rem;
   border-radius: 999rem;
   cursor: pointer;
-  transition: 100ms;
+  transition: var(--transition_default);
 }
 
 .button:hover {
