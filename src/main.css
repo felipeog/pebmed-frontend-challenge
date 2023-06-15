@@ -7,31 +7,6 @@
   padding: 0;
 }
 
-/* variables */
-:root {
-  /* color */
-  --color_primary: #191847;
-  --color_secondary: #f5850b;
-
-  --color_white: #fff;
-  --color_gray_1: #ebebeb;
-  --color_gray_2: #dddddd;
-  --color_gray_3: #b0b0b0;
-  --color_gray_4: #727272;
-  --color_black: #000;
-
-  /* typography */
-  --font_family: "DM Sans", sans-serif;
-
-  --text_regular: normal normal 400 16px/21px var(--font_family);
-  --text_small: normal normal 400 14px/18px var(--font_family);
-  --text_small_bold: normal normal 700 14px/18px var(--font_family);
-  --text_footnote: normal normal 400 12px/16px var(--font_family);
-  --text_exception: normal normal 400 10px/13px var(--font_family);
-
-  --heading_4: normal normal 400 20px/16px var(--font_family);
-}
-
 html {
   font-family: var(--font_family);
   font-size: 16px;
