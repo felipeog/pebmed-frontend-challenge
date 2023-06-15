@@ -1,8 +1,8 @@
-import { SVGProps } from "react";
+import { ComponentProps } from "react";
 
 import * as Icons from "../../assets/icons";
 
-interface IIconProps extends SVGProps<SVGSVGElement> {
+interface IIconProps extends ComponentProps<"svg"> {
   name: "ArrowLeft" | "Check" | "Iugu" | "QuestionMark" | "Star" | "Whitebook";
 }
 
