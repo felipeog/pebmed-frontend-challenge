@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Icon } from "./";
 
 const meta = {
-  title: "Icon",
+  title: "Component/Icon",
   component: Icon,
   tags: ["component"],
   argTypes: {},

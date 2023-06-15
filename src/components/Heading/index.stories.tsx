@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Heading } from "./";
 
 const meta = {
-  title: "Heading",
+  title: "Component/Heading",
   component: Heading,
   tags: ["component"],
   argTypes: {},

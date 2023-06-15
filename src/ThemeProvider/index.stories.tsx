@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ThemeProvider } from "./";
 
 const meta = {
-  title: "ThemeProvider",
+  title: "Theme/ThemeProvider",
   component: ThemeProvider,
   tags: ["theme"],
   argTypes: {},
