@@ -1,0 +1,23 @@
+.h1 {
+  font: var(--heading_1);
+}
+
+.h2 {
+  font: var(--heading_2);
+}
+
+.h3 {
+  font: var(--heading_3);
+}
+
+.h4 {
+  font: var(--heading_4);
+}
+
+.h5 {
+  font: var(--heading_5);
+}
+
+.h6 {
+  font: var(--heading_6);
+}
