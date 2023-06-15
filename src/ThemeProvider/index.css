@@ -31,7 +31,12 @@ html {
 
   /* typography */
   --font_family: "DM Sans", sans-serif;
+  --heading_1: normal normal 400 32px/22px var(--font_family);
+  --heading_2: normal normal 400 28px/20px var(--font_family);
+  --heading_3: normal normal 400 24px/18px var(--font_family);
   --heading_4: normal normal 400 20px/16px var(--font_family);
+  --heading_5: normal normal 400 16px/14px var(--font_family);
+  --heading_6: normal normal 400 12px/12px var(--font_family);
   --text_regular: normal normal 400 16px/21px var(--font_family);
   --text_small: normal normal 400 14px/18px var(--font_family);
   --text_small_bold: normal normal 700 14px/18px var(--font_family);

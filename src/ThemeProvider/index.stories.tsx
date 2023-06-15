@@ -52,8 +52,23 @@ export const Typography: Story = {
   args: {
     children: (
       <div style={{ display: "grid", gap: "1rem" }}>
+        <p style={{ font: "var(--heading_1)" }}>
+          --heading_1 - Lorem ipsum dolor sit amet
+        </p>
+        <p style={{ font: "var(--heading_2)" }}>
+          --heading_2 - Lorem ipsum dolor sit amet
+        </p>
+        <p style={{ font: "var(--heading_3)" }}>
+          --heading_3 - Lorem ipsum dolor sit amet
+        </p>
         <p style={{ font: "var(--heading_4)" }}>
           --heading_4 - Lorem ipsum dolor sit amet
+        </p>
+        <p style={{ font: "var(--heading_5)" }}>
+          --heading_5 - Lorem ipsum dolor sit amet
+        </p>
+        <p style={{ font: "var(--heading_6)" }}>
+          --heading_6 - Lorem ipsum dolor sit amet
         </p>
         <p style={{ font: "var(--text_regular)" }}>
           --text_regular - Lorem ipsum dolor sit amet
