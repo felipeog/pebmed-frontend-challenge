@@ -42,4 +42,11 @@ html {
   --text_small_bold: normal normal 700 14px/1.4 var(--font_family);
   --text_footnote: normal normal 400 12px/1.4 var(--font_family);
   --text_exception: normal normal 400 10px/1.4 var(--font_family);
+
+  /* border */
+  --border_default: 0.1rem solid var(--color_primary);
+  --border_radius: 1rem;
+
+  /* other */
+  --transition_default: 100ms;
 }
