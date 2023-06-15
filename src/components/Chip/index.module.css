@@ -1,0 +1,7 @@
+.chip {
+  background-color: var(--color_secondary);
+  color: var(--color_white);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999rem;
+  font: var(--text_exception);
+}
