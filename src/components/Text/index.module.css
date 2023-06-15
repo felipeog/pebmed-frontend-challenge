@@ -1,0 +1,19 @@
+.regular {
+  font: var(--text_regular);
+}
+
+.small {
+  font: var(--text_small);
+}
+
+.smallBold {
+  font: var(--text_small_bold);
+}
+
+.footnote {
+  font: var(--text_footnote);
+}
+
+.exception {
+  font: var(--text_exception);
+}
