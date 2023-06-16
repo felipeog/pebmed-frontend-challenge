@@ -1,4 +1,5 @@
 import { ComponentProps } from "react";
+import clsx from "clsx";
 
 import styles from "./index.module.css";
 
@@ -7,11 +8,14 @@ interface IHeadingProps extends ComponentProps<TTHeadingTags> {
   tag?: TTHeadingTags;
 }
 
-function Heading({ tag = "h1", children, ...props }: IHeadingProps) {
+function Heading({ children, className, tag = "h1", ...props }: IHeadingProps) {
   const CurrentHeading = tag;
 
   return (
-    <CurrentHeading className={`Heading ${styles[tag]}`} {...props}>
+    <CurrentHeading
+      className={clsx("Heading", className, styles[tag])}
+      {...props}
+    >
       {children}
     </CurrentHeading>
   );
