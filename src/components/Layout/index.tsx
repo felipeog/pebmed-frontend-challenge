@@ -1,12 +1,16 @@
 import { Outlet } from "react-router-dom";
 
-import { NavigationHeader } from "./components/NavigationHeader";
+import { NavigationHeader } from "../NavigationHeader";
+import styles from "./index.module.css";
 
 function Layout() {
   return (
     <div className="Layout">
       <NavigationHeader />
-      <Outlet />
+
+      <div className={styles.outlet}>
+        <Outlet />
+      </div>
     </div>
   );
 }
