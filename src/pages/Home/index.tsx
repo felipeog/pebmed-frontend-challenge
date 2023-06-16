@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { Button } from "../../components/Button";
-import { Heading } from "../../components/Heading";
+import { Button } from "components/Button";
+import { Heading } from "components/Heading";
 import styles from "./index.module.css";
 
 function Home() {

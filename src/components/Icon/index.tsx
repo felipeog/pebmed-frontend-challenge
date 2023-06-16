@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
 import clsx from "clsx";
 
-import * as Icons from "../../assets/icons";
+import * as Icons from "assets/icons";
 
 interface IIconProps extends ComponentProps<"svg"> {
   name: "ArrowLeft" | "Check" | "Iugu" | "QuestionMark" | "Star" | "Whitebook";
