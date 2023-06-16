@@ -27,7 +27,9 @@
       "components/*": ["./src/components/*"],
       "pages/*": ["./src/pages/*"],
       "router/*": ["./src/router/*"],
-      "theme/*": ["./src/theme/*"]
+      "services/*": ["./src/services/*"],
+      "theme/*": ["./src/theme/*"],
+      "types/*": ["./src/types/*"]
     }
   },
   "include": ["src"],
