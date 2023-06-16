@@ -3,6 +3,7 @@
   border-radius: 999rem;
   cursor: pointer;
   transition: var(--transition_duration);
+  font: var(--text_small);
 }
 
 /* primary variation */
