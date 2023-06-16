@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
 import { Button } from "components/Button";
 import { Heading } from "components/Heading";
@@ -12,7 +13,7 @@ function Home() {
   }
 
   return (
-    <div className={`Home ${styles.home}`}>
+    <div className={clsx("Home", styles.home)}>
       <Heading tag="h1">Whitebook</Heading>
       <Heading className={styles.subtitle} tag="h2">
         De médicos para médicos, melhorando a sua tomada de decisão clínica
