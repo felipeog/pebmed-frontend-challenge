@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ThemeProvider } from "components/ThemeProvider";
+import { ThemeProvider } from "theme/ThemeProvider";
 
 const meta = {
   title: "Theme/ThemeProvider",
