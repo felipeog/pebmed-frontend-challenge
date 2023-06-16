@@ -48,6 +48,19 @@ html {
   --border_light: 0.1rem solid var(--color_gray_1);
   --border_radius: 1rem;
 
-  /* other */
-  --transition_default: 100ms;
+  /* transition */
+  --transition_duration: 100ms;
+
+  /* animation */
+  --animation_hover_opacity: 100ms ease-in-out forwards hover-opacity;
+}
+
+@keyframes hover-opacity {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.8;
+  }
 }

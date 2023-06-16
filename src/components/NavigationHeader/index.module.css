@@ -9,6 +9,10 @@
   place-items: center;
 }
 
+.item:hover {
+  animation: var(--animation_hover_opacity);
+}
+
 .item,
 .link {
   display: inline-flex;
