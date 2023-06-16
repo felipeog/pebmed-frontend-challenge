@@ -8,6 +8,9 @@
 }
 
 .header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
   color: var(--color_black);
 }
 
