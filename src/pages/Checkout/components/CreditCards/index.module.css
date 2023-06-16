@@ -1,0 +1,19 @@
+.wrapper {
+  padding: 1.8rem;
+}
+
+.cardsImage {
+  display: block;
+  margin: 0 auto;
+}
+
+.iuguText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+  text-align: center;
+  font: var(--text_exception);
+  color: var(--color_gray_1);
+}
