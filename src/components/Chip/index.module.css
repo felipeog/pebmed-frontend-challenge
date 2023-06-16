@@ -10,7 +10,7 @@
 }
 
 .outlined {
-  border: var(--border_light);
+  border: var(--border_gray);
   background-color: var(--color_white);
   color: var(--color_black);
 }
