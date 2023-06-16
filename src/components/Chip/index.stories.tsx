@@ -15,5 +15,6 @@ type Story = StoryObj<typeof meta>;
 export const Chips: Story = {
   args: {
     children: "Chip",
+    variation: "filled",
   },
 };
