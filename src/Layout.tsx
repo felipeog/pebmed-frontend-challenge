@@ -1,20 +1,11 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+
+import { NavigationHeader } from "./components/NavigationHeader";
 
 function Layout() {
   return (
     <div className="Layout">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">back</Link>
-          </li>
-
-          <li>
-            <Link to="/">logo</Link>
-          </li>
-        </ul>
-      </nav>
-
+      <NavigationHeader />
       <Outlet />
     </div>
   );

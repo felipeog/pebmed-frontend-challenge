@@ -1,0 +1,21 @@
+.header {
+  padding: 1.5rem;
+}
+
+.list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1.25rem auto 1.25rem;
+  place-items: center;
+}
+
+.item,
+.link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  padding: 0.4rem 0.6rem;
+}
