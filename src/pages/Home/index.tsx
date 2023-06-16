@@ -14,7 +14,7 @@ function Home() {
   return (
     <div className={`Home ${styles.home}`}>
       <Heading tag="h1">Whitebook</Heading>
-      <Heading tag="h3">
+      <Heading className={styles.subtitle} tag="h2">
         De médicos para médicos, melhorando a sua tomada de decisão clínica
       </Heading>
 

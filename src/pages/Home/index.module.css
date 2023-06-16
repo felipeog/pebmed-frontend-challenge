@@ -6,3 +6,7 @@
   margin: 4rem auto 0;
   text-align: center;
 }
+
+.subtitle {
+  color: var(--color_black);
+}
