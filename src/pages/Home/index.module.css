@@ -1,0 +1,8 @@
+.home {
+  max-width: 500px;
+  display: grid;
+  gap: 2rem;
+  place-items: center;
+  margin: 4rem auto 0;
+  text-align: center;
+}
