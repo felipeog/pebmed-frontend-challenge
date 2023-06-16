@@ -2,7 +2,7 @@ import React from "react";
 import type { Preview } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 
-import { ThemeProvider } from "../src/components/ThemeProvider";
+import { ThemeProvider } from "../src/theme/ThemeProvider";
 
 const preview: Preview = {
   parameters: {

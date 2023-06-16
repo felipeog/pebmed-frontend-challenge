@@ -1,7 +1,7 @@
 import { Outlet, useMatch } from "react-router-dom";
 
-import { HomeHeader } from "./components/HomeHeader";
-import { NavigationHeader } from "./components/NavigationHeader";
+import { HomeHeader } from "router/HomeHeader";
+import { NavigationHeader } from "router/NavigationHeader";
 import styles from "./index.module.css";
 
 function Layout() {
