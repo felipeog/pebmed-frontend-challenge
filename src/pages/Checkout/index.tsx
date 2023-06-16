@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldErrors, useForm } from "react-hook-form";
@@ -7,11 +7,13 @@ import clsx from "clsx";
 import { IPlan } from "types/IPlan";
 import { ISubscription } from "types/ISubscription";
 import * as api from "services/api";
+import { formatBrl } from "utils/formatBrl";
 import { Button } from "components/Button";
 import { Heading } from "components/Heading";
 import { Text } from "components/Text";
 import { Chip } from "components/Chip";
 import { Input } from "components/Input";
+import { Select } from "components/Select";
 import { CreditCards } from "./components/CreditCards";
 import styles from "./index.module.css";
 
@@ -22,15 +24,19 @@ interface IFormValues {
   name: string;
   cpf: string;
   coupon: string;
+  installments: string;
 }
 
 function Checkout() {
+  const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
   const navigate = useNavigate();
-  const { register, handleSubmit, formState, setValue } =
-    useForm<IFormValues>();
+  const subscriptionForm = useForm<IFormValues>();
   const plansResult = useQuery<IPlan[], Error>({
     queryKey: ["plans"],
     queryFn: api.fetchPlans,
+    onSuccess: (data) => {
+      setSelectedPlan(data[0]);
+    },
   });
   const subscribe = useMutation({
     mutationFn: api.sendSubscription,
@@ -48,6 +54,30 @@ function Checkout() {
     },
   });
 
+  const { register, handleSubmit, formState, setValue, watch } =
+    subscriptionForm;
+  const installments = watch("installments");
+
+  const installmentsOptions = useMemo(() => {
+    if (selectedPlan?.splittable) {
+      return Array(selectedPlan.installments - 1)
+        .fill(null)
+        .map((_, index) => {
+          const installment = index + 2;
+          const totalPrice =
+            selectedPlan.fullPrice - selectedPlan.discountAmmount;
+          const installmentPrice = formatBrl(totalPrice / installment);
+
+          return {
+            label: `${installment}x de ${installmentPrice}/mês`,
+            value: installment,
+          };
+        });
+    }
+
+    return [];
+  }, [selectedPlan]);
+
   // TODO: type this correctly
   function onValid(data: IFormValues) {
     subscribe.mutate({
@@ -58,9 +88,9 @@ function Checkout() {
       creditCardHolder: data.name,
       creditCardNumber: data.number.replace(/\D/g, ""),
       gateway: "iugu",
-      installments: 1, // get from form
+      installments: Number(data.installments),
       offerId: 18,
-      userId: 1, // get random number?
+      userId: 1,
     });
   }
 
@@ -125,6 +155,12 @@ function Checkout() {
     setValue("coupon", formattedValue, { shouldValidate: true });
   }
 
+  function handleInstallmentsSelectChange(
+    event: ChangeEvent<HTMLSelectElement>
+  ) {
+    setValue("installments", event.target.value, { shouldValidate: true });
+  }
+
   if (plansResult.isLoading || subscribe.isLoading) {
     return <div>Carregando...</div>;
   }
@@ -147,76 +183,87 @@ function Checkout() {
 
         <CreditCards />
 
-        <form
-          className={styles.form}
-          onSubmit={handleSubmit(onValid, onInvalid)}
-        >
-          <Input
-            {...register("number", { required: "Número do cartão inválido" })}
-            id="number"
-            label="Número do cartão"
-            type="text"
-            placeholder="0000 0000 0000 0000"
-            onChange={handleNumberInputChange}
-            isValid={!formState.errors.number?.message}
-          />
-
-          <div className={styles.twoInputs}>
+        <form onSubmit={handleSubmit(onValid, onInvalid)}>
+          <fieldset className={styles.fieldset}>
             <Input
-              {...register("expiration", { required: "Validade inválida" })}
-              id="expiration"
-              label="Validade"
+              {...register("number", { required: "Número do cartão inválido" })}
+              id="number"
+              label="Número do cartão"
               type="text"
-              placeholder="MM/AA"
-              onChange={handleExpirationInputChange}
-              isValid={!formState.errors.expiration?.message}
+              placeholder="0000 0000 0000 0000"
+              onChange={handleNumberInputChange}
+              isValid={!formState.errors.number?.message}
+            />
+
+            <div className={styles.twoInputs}>
+              <Input
+                {...register("expiration", { required: "Validade inválida" })}
+                id="expiration"
+                label="Validade"
+                type="text"
+                placeholder="MM/AA"
+                onChange={handleExpirationInputChange}
+                isValid={!formState.errors.expiration?.message}
+              />
+              <Input
+                {...register("code", { required: "CVV inválido" })}
+                id="code"
+                label="CVV"
+                type="text"
+                placeholder="000"
+                onChange={handleCodeInputChange}
+                isValid={!formState.errors.code?.message}
+              />
+            </div>
+
+            <Input
+              {...register("name", {
+                required: "Nome impresso no cartão inválido",
+              })}
+              id="name"
+              label="Nome impresso no cartão"
+              type="text"
+              placeholder="Seu nome"
+              onChange={handleNameInputChange}
+              isValid={!formState.errors.name?.message}
             />
             <Input
-              {...register("code", { required: "CVV inválido" })}
-              id="code"
-              label="CVV"
+              {...register("cpf", { required: "CPF inválido" })}
+              id="cpf"
+              label="CPF"
               type="text"
-              placeholder="000"
-              onChange={handleCodeInputChange}
-              isValid={!formState.errors.code?.message}
+              placeholder="000.000.000-00"
+              onChange={handleCpfInputChange}
+              isValid={!formState.errors.cpf?.message}
             />
-          </div>
+            <Input
+              {...register("coupon", { required: false })}
+              id="coupon"
+              label="Cupom"
+              type="text"
+              placeholder="Insira aqui"
+              onChange={handleCouponInputChange}
+              isValid={!formState.errors.coupon?.message}
+            />
 
-          <Input
-            {...register("name", {
-              required: "Nome impresso no cartão inválido",
-            })}
-            id="name"
-            label="Nome impresso no cartão"
-            type="text"
-            placeholder="Seu nome"
-            onChange={handleNameInputChange}
-            isValid={!formState.errors.name?.message}
-          />
-          <Input
-            {...register("cpf", { required: "CPF inválido" })}
-            id="cpf"
-            label="CPF"
-            type="text"
-            placeholder="000.000.000-00"
-            onChange={handleCpfInputChange}
-            isValid={!formState.errors.cpf?.message}
-          />
-          <Input
-            {...register("coupon", { required: false })}
-            id="coupon"
-            label="Cupom"
-            type="text"
-            placeholder="Insira aqui"
-            onChange={handleCouponInputChange}
-            isValid={!formState.errors.coupon?.message}
-          />
+            {Boolean(installmentsOptions?.length) && (
+              <Select
+                {...register("installments", {
+                  required: "Número de parcelas inválido",
+                })}
+                id="installments"
+                label="Número de parcelas"
+                onChange={handleInstallmentsSelectChange}
+                options={installmentsOptions}
+                isValid={!formState.errors.installments?.message}
+                isDefaultValue={!installments}
+              />
+            )}
+          </fieldset>
 
-          {/* TODO: <select {...register("installments", { required: true })}>
-            <option value="1">1x de R$ 123,45/mês</option>
-          </select> */}
-
-          <Button type="submit">Finalizar pagamento</Button>
+          <Button className={styles.submit} type="submit">
+            Finalizar pagamento
+          </Button>
         </form>
       </section>
 

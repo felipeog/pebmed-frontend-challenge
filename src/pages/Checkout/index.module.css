@@ -15,7 +15,8 @@
   color: var(--color_black);
 }
 
-.form {
+.fieldset {
+  border: none;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -26,4 +27,9 @@
   gap: 1.9rem;
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+.submit {
+  margin-top: 2.5rem;
+  width: 100%;
 }
