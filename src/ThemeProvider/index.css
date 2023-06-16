@@ -44,7 +44,8 @@ html {
   --text_exception: normal normal 400 0.625rem/1.4 var(--font_family);
 
   /* border */
-  --border_default: 0.1rem solid var(--color_primary);
+  --border_dark: 0.1rem solid var(--color_primary);
+  --border_light: 0.1rem solid var(--color_gray_1);
   --border_radius: 1rem;
 
   /* other */
