@@ -9,14 +9,6 @@
   padding: 0;
 }
 
-/* base styles */
-html {
-  font-family: var(--font_family);
-  font-size: 16px;
-  background-color: var(--color_white);
-  color: var(--color_primary);
-}
-
 /* variables */
 :root {
   /* color */
@@ -56,6 +48,22 @@ html {
   --animation_hover_opacity: 100ms ease-in-out forwards hover-opacity;
 }
 
+/* base styles */
+html {
+  font-family: var(--font_family);
+  font-size: 16px;
+  background-color: var(--color_white);
+  color: var(--color_primary);
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: var(--font_family);
+}
+
+/* animation */
 @keyframes hover-opacity {
   from {
     opacity: 1;
