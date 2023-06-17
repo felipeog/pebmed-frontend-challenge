@@ -46,6 +46,9 @@
 
   /* animation */
   --animation_hover_opacity: 100ms ease-in-out forwards hover-opacity;
+
+  /* shadow */
+  --box_shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.05);
 }
 
 /* base styles */
@@ -72,4 +75,13 @@ select {
   to {
     opacity: 0.8;
   }
+}
+
+/* react-toastify overrides */
+.Toastify__toast-container .Toastify__toast {
+  font-family: var(--font_family);
+  font-size: var(--text_regular);
+  border-radius: var(--border_radius);
+  box-shadow: var(--box_shadow);
+  border: var(--border_gray);
 }
