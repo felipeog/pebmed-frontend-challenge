@@ -103,7 +103,7 @@ function Checkout() {
     const firstError = Object.values(errors)[0];
 
     toast(firstError.message, {
-      toastId: "checkout-invalid-form",
+      toastId: firstError.message,
     });
   }
 
@@ -115,7 +115,7 @@ function Checkout() {
       .replace(/(\d{4})(\d)/, "$1 $2")
       .replace(/(.{19})(.+)/, "$1"); // 16 digits + 3 spaces between them
 
-    setValue("number", formattedValue, { shouldValidate: true });
+    setValue("number", formattedValue, { shouldDirty: true });
   }
 
   function handleExpirationInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -124,17 +124,17 @@ function Checkout() {
       .replace(/(\d{2})(\d)/, "$1/$2")
       .replace(/(.{5})(.+)/, "$1"); // 4 digits + 1 slash between them
 
-    // TODO: check if the current date is before the expiration date
-
-    setValue("expiration", formattedValue, { shouldValidate: true });
+    setValue("expiration", formattedValue, { shouldDirty: true });
   }
 
   function handleNameInputChange(event: ChangeEvent<HTMLInputElement>) {
     const formattedValue = event.target.value
+      .replace(/[^a-z\s]/gi, "")
+      .replace(/\s{2,}/g, " ")
       .replace(/(.{178})(.+)/, "$1")
       .toUpperCase();
 
-    setValue("name", formattedValue, { shouldValidate: true });
+    setValue("name", formattedValue, { shouldDirty: true });
   }
 
   function handleCodeInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -142,7 +142,7 @@ function Checkout() {
       .replace(/\D/g, "")
       .replace(/(.{3})(.+)/, "$1");
 
-    setValue("code", formattedValue, { shouldValidate: true });
+    setValue("code", formattedValue, { shouldDirty: true });
   }
 
   function handleCpfInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -153,7 +153,7 @@ function Checkout() {
       .replace(/(\d{3})(\d{1,2})/, "$1-$2")
       .replace(/(.{14})(.+)/, "$1"); // 11 digits + 2 dots + 1 dash
 
-    setValue("cpf", formattedValue, { shouldValidate: true });
+    setValue("cpf", formattedValue, { shouldDirty: true });
   }
 
   function handleCouponInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -161,13 +161,13 @@ function Checkout() {
       .replace(/(.{178})(.+)/, "$1")
       .toUpperCase();
 
-    setValue("coupon", formattedValue, { shouldValidate: true });
+    setValue("coupon", formattedValue, { shouldDirty: true });
   }
 
   function handleInstallmentsSelectChange(
     event: ChangeEvent<HTMLSelectElement>
   ) {
-    setValue("installments", event.target.value, { shouldValidate: true });
+    setValue("installments", event.target.value, { shouldDirty: true });
   }
 
   function getPlanOptionClickHandler(plan: IPlan) {
@@ -175,14 +175,14 @@ function Checkout() {
   }
 
   if (plansResult.isLoading || subscribe.isLoading) {
-    return <div>Carregando...</div>;
+    return <Text>Carregando...</Text>;
   }
 
   if (plansResult.isError || subscribe.isError) {
     return (
-      <div>
+      <Text>
         Ocorreu um erro. Atualize a página ou tente novamente mais tarde.
-      </div>
+      </Text>
     );
   }
 
@@ -199,7 +199,13 @@ function Checkout() {
         <form onSubmit={handleSubmit(onValid, onInvalid)}>
           <fieldset className={styles.fieldset}>
             <Input
-              {...register("number", { required: "Número do cartão inválido" })}
+              {...register("number", {
+                required: "Número do cartão é obrigatório",
+                pattern: {
+                  value: /^(\d{4}\s){3}\d{4}$/,
+                  message: "Número do cartão inválido",
+                },
+              })}
               id="number"
               label="Número do cartão"
               type="text"
@@ -210,7 +216,13 @@ function Checkout() {
 
             <div className={styles.twoInputs}>
               <Input
-                {...register("expiration", { required: "Validade inválida" })}
+                {...register("expiration", {
+                  required: "Validade é obrigatória",
+                  pattern: {
+                    value: /^\d{2}\/\d{2}$/,
+                    message: "Validade inválida",
+                  },
+                })}
                 id="expiration"
                 label="Validade"
                 type="text"
@@ -219,7 +231,13 @@ function Checkout() {
                 isValid={!formState.errors.expiration?.message}
               />
               <Input
-                {...register("code", { required: "CVV inválido" })}
+                {...register("code", {
+                  required: "CVV é obrigatório",
+                  pattern: {
+                    value: /^\d{3}$/,
+                    message: "CVV inválido",
+                  },
+                })}
                 id="code"
                 label="CVV"
                 type="text"
@@ -241,7 +259,13 @@ function Checkout() {
               isValid={!formState.errors.name?.message}
             />
             <Input
-              {...register("cpf", { required: "CPF inválido" })}
+              {...register("cpf", {
+                required: "CPF é obrigatório",
+                pattern: {
+                  value: /^(\d{3}\.){2}\d{3}-\d{2}$/,
+                  message: "CPF inválido",
+                },
+              })}
               id="cpf"
               label="CPF"
               type="text"
@@ -283,7 +307,7 @@ function Checkout() {
       <section className={styles.column}>
         <header className={styles.header}>
           <Heading tag="h4">Confira o seu plano:</Heading>
-          <Chip variation="outlined">fulano@cicrano.com.br</Chip>
+          <Chip variation="outlined">felipe.goncalves@afya.com.br</Chip>
         </header>
 
         <div>
