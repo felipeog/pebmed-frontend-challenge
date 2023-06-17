@@ -20,6 +20,14 @@ export const Color: Story = {
         <p style={{ color: "var(--color_primary)" }}>&#11044;</p>
         <br />
 
+        <code>--color_primary_light_1</code>
+        <p style={{ color: "var(--color_primary_light_1)" }}>&#11044;</p>
+        <br />
+
+        <code>--color_primary_light_2</code>
+        <p style={{ color: "var(--color_primary_light_2)" }}>&#11044;</p>
+        <br />
+
         <code>--color_secondary</code>
         <p style={{ color: "var(--color_secondary)" }}>&#11044;</p>
         <br />
@@ -112,6 +120,58 @@ export const Typography: Story = {
         <p style={{ font: "var(--text_exception)" }}>
           Lorem ipsum dolor sit amet
         </p>
+      </div>
+    ),
+  },
+};
+
+export const Border: Story = {
+  args: {
+    children: (
+      <div>
+        <code>--border_primary</code>
+        <div
+          style={{
+            width: "5rem",
+            height: "5rem",
+            backgroundColor: "var(--color_white)",
+            border: "var(--border_primary)",
+          }}
+        ></div>
+        <br />
+
+        <code>--border_secondary</code>
+        <div
+          style={{
+            width: "5rem",
+            height: "5rem",
+            backgroundColor: "var(--color_white)",
+            border: "var(--border_secondary)",
+          }}
+        ></div>
+        <br />
+
+        <code>--border_gray</code>
+        <div
+          style={{
+            width: "5rem",
+            height: "5rem",
+            backgroundColor: "var(--color_white)",
+            border: "var(--border_gray)",
+          }}
+        ></div>
+        <br />
+
+        <code>--border_radius</code>
+        <div
+          style={{
+            width: "5rem",
+            height: "5rem",
+            backgroundColor: "var(--color_gray_1)",
+            borderRadius: "var(--border_radius)",
+          }}
+        ></div>
+        <br />
       </div>
     ),
   },
