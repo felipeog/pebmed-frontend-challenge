@@ -18,6 +18,7 @@ import { Icon } from "components/Icon";
 import { Chip } from "components/Chip";
 import { Input } from "components/Input";
 import { Select } from "components/Select";
+import { EMAIL_MOCK } from "consts/emailMock";
 import { CreditCards } from "./components/CreditCards";
 import { PlanOption } from "./components/PlanOption";
 import styles from "./index.module.css";
@@ -32,8 +33,15 @@ interface IFormValues {
   installments: string;
 }
 
+interface IInstallmentOption {
+  label: string;
+  value: number;
+}
+
 function Checkout() {
   const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
+  const [selectedInstallment, setSelectedInstallment] =
+    useState<IInstallmentOption | null>(null);
   const navigate = useNavigate();
   const subscriptionForm = useForm<IFormValues>();
   const plansResult = useQuery<IPlan[], Error>({
@@ -49,9 +57,15 @@ function Checkout() {
       console.error("Checkout @ subscribre >>>>>", error);
     },
     onSuccess: (data: ISubscription) => {
+      console.log("🚀 ~ data:", data); // it's always the same
+
       navigate("/checkout/success", {
         state: {
-          subscription: data,
+          subscription: {
+            plan: selectedPlan,
+            installment: selectedInstallment,
+            form: subscriptionForm.getValues(),
+          },
         },
       });
     },
@@ -77,12 +91,7 @@ function Checkout() {
     return [];
   }, [selectedPlan]);
 
-  const { register, handleSubmit, formState, setValue, watch } =
-    subscriptionForm;
-  const installments = watch("installments");
-  const selectedInstallment = installmentsOptions.find(
-    (option) => option.value === Number(installments)
-  );
+  const { register, handleSubmit, formState, setValue } = subscriptionForm;
 
   function onValid(data: IFormValues) {
     subscribe.mutate({
@@ -168,6 +177,11 @@ function Checkout() {
     event: ChangeEvent<HTMLSelectElement>
   ) {
     setValue("installments", event.target.value, { shouldDirty: true });
+    setSelectedInstallment(
+      installmentsOptions.find(
+        (option) => option.value === Number(event.target.value)
+      ) as IInstallmentOption
+    );
   }
 
   function getPlanOptionClickHandler(plan: IPlan) {
@@ -293,7 +307,7 @@ function Checkout() {
                 onChange={handleInstallmentsSelectChange}
                 options={installmentsOptions}
                 isValid={!formState.errors.installments?.message}
-                isDefaultValue={!installments}
+                isDefaultValue={!selectedInstallment}
               />
             )}
           </fieldset>
@@ -307,7 +321,7 @@ function Checkout() {
       <section className={styles.column}>
         <header className={styles.header}>
           <Heading tag="h4">Confira o seu plano:</Heading>
-          <Chip variation="outlined">felipe.goncalves@afya.com.br</Chip>
+          <Chip variation="outlined">{EMAIL_MOCK}</Chip>
         </header>
 
         <div>
