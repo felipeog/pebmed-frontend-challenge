@@ -13,6 +13,8 @@
 :root {
   /* color */
   --color_primary: #191847;
+  --color_primary_light_1: #e1dee8;
+  --color_primary_light_2: #f4f3f6;
   --color_secondary: #f5850b;
   --color_white: #fff;
   --color_gray_1: #ebebeb;
