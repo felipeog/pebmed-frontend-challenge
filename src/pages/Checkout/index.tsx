@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
+import { toast } from "react-toastify";
 
 import clsx from "clsx";
 
@@ -39,15 +40,13 @@ function Checkout() {
     queryKey: ["plans"],
     queryFn: api.fetchPlans,
     onSuccess: (data) => {
-      setSelectedPlan(data[0]);
+      setSelectedPlan((prev) => prev ?? data[0]);
     },
   });
   const subscribe = useMutation({
     mutationFn: api.sendSubscription,
     onError: (error: Error) => {
       console.error("Checkout @ subscribre >>>>>", error);
-      alert("Ocorreu um erro, tente novamente.");
-      // TODO: add toast
     },
     onSuccess: (data: ISubscription) => {
       navigate("/checkout/success", {
@@ -101,7 +100,11 @@ function Checkout() {
   }
 
   function onInvalid(errors: FieldErrors<IFormValues>) {
-    // TODO: add toast
+    const firstError = Object.values(errors)[0];
+
+    toast(firstError.message, {
+      toastId: "checkout-invalid-form",
+    });
   }
 
   function handleNumberInputChange(event: ChangeEvent<HTMLInputElement>) {
