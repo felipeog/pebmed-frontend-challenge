@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <Router />
       <ToastContainer
-        position="bottom-left"
+        position="bottom-right"
         draggable={false}
         transition={Slide}
         hideProgressBar
