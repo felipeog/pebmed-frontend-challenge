@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Checkboxs: Story = {
+export const Overview: Story = {
   args: {
     isOn: false,
     isDisabled: false,

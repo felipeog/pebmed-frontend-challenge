@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Selects: Story = {
+export const Overview: Story = {
   args: {
     disabled: false,
     label: "Label",

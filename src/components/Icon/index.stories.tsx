@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Icons: Story = {
+export const Overview: Story = {
   args: {
     name: "ArrowLeft",
     width: 32,

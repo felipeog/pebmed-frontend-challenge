@@ -3,15 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { NavigationHeader } from "./";
 
 const meta = {
-  title: "Component/NavigationHeader",
+  title: "Router/NavigationHeader",
   component: NavigationHeader,
-  tags: ["component"],
+  tags: ["router"],
   argTypes: {},
 } satisfies Meta<typeof NavigationHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NavigationHeaders: Story = {
+export const Overview: Story = {
   args: {},
 };

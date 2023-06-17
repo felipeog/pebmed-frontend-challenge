@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Inputs: Story = {
+export const Overview: Story = {
   args: {
     isValid: true,
     disabled: false,
