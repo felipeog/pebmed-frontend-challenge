@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { App } from "./App";
 import { ThemeProvider } from "theme/ThemeProvider";
+import "react-tooltip/dist/react-tooltip.css";
 
 const queryClient = new QueryClient();
 const root = document.getElementById("root") as HTMLElement;
