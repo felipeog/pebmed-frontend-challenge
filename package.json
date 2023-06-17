@@ -11,7 +11,9 @@
     "cm": "cz",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "cypress:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy:component": "cypress run --component",
+    "cy:e2e": "cypress run"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.14",
