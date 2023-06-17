@@ -1,0 +1,85 @@
+.successfulCheckout {
+  width: 21rem;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.headerIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border: var(--border_gray);
+  border-radius: 50%;
+}
+
+.headerText {
+  color: var(--color_gray_3);
+}
+
+.section {
+  margin-top: 3.4rem;
+}
+
+.planCard {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+}
+
+.planIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: var(--color_primary_light_1);
+  border-radius: 50%;
+}
+
+.userData {
+  margin-top: 1.2rem;
+  padding-inline: 1rem;
+}
+
+.userRow {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.userRow:not(:first-child) {
+  margin-top: 1.6rem;
+}
+
+.label {
+  color: var(--color_gray_3);
+}
+
+.value {
+  color: var(--color_black);
+}
+
+.navigate {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  margin-top: 5.4rem;
+  text-align: center;
+}
+
+.navigateLink {
+  font: var(--text_small_bold);
+}
