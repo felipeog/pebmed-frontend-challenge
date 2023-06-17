@@ -13,7 +13,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import { mount } from "cypress/react";
+import { mount } from "cypress/react18";
 
 import { ThemeProvider } from "theme/ThemeProvider";
 import "./commands";
