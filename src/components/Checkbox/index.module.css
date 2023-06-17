@@ -1,0 +1,55 @@
+/* off state */
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: var(--border_gray);
+  background-color: var(--color_white);
+  cursor: pointer;
+  transition: var(--transition_duration);
+  position: relative;
+  transition: var(--transition_duration);
+}
+
+.checkbox:hover:not(.disabled) {
+  animation: var(--animation_hover_opacity);
+}
+
+.checkbox::before {
+  content: "";
+  display: block;
+  width: 0.6rem;
+  height: 0.6rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+/* on state */
+.checkbox.on {
+  border-color: var(--color_gray_3);
+}
+
+.checkbox.on::before {
+  background-color: var(--color_primary);
+}
+
+/* disabled off state */
+.checkbox.disabled {
+  border-color: var(--color_gray_2);
+  background-color: var(--color_gray_1);
+  cursor: not-allowed;
+}
+
+.checkbox.disabled {
+  border-color: var(--color_gray_2);
+  background-color: var(--color_gray_1);
+  cursor: not-allowed;
+}
+
+/* disabled on state */
+.checkbox.disabled.on::before {
+  background-color: var(--color_gray_4);
+}
