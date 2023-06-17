@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import { EMAIL_MOCK } from "consts/emailMock";
+import { IPlan } from "types/IPlan";
 import { Icon } from "components/Icon";
 import { Heading } from "components/Heading";
 import { Text } from "components/Text";
@@ -10,6 +11,23 @@ import { Card } from "components/Card";
 import { formatBrl } from "utils/formatBrl";
 import { Button } from "components/Button";
 import styles from "./index.module.css";
+
+interface ISubscriptionState {
+  plan: IPlan;
+  installment: {
+    label: string;
+    value: number;
+  };
+  form: {
+    number: string;
+    expiration: string;
+    code: string;
+    name: string;
+    cpf: string;
+    coupon: string;
+    installments: string;
+  };
+}
 
 function SuccesfulCheckout() {
   const location = useLocation();
@@ -27,7 +45,8 @@ function SuccesfulCheckout() {
     return null;
   }
 
-  const { form, installment, plan } = location.state.subscription;
+  const { form, installment, plan } = location.state
+    .subscription as ISubscriptionState;
   const finalPrice = plan.fullPrice - plan.discountAmmount;
 
   function handleHomeButtonClick() {
