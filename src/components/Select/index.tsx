@@ -46,7 +46,7 @@ function Select(
         defaultValue={""}
         {...props}
       >
-        <option value="" disabled hidden>
+        <option value="" disabled>
           Selecionar
         </option>
 
