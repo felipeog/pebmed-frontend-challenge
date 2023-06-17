@@ -13,10 +13,9 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import React from "react";
 import { mount } from "cypress/react";
 
-import { ThemeProvider } from "../../src/theme/ThemeProvider";
+import { ThemeProvider } from "theme/ThemeProvider";
 import "./commands";
 
 declare global {
