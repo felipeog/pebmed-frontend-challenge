@@ -2,6 +2,8 @@ import { ChangeEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldErrors, useForm } from "react-hook-form";
+import { Tooltip } from "react-tooltip";
+
 import clsx from "clsx";
 
 import { IPlan } from "types/IPlan";
@@ -306,7 +308,15 @@ function Checkout() {
 
           <Text className={styles.planWarning} variation="footnote">
             Sobre a cobrança{" "}
-            <Icon name="QuestionMark" fill="var(--color_black)" width={16} />
+            <Icon
+              className={styles.icon}
+              name="QuestionMark"
+              fill="var(--color_black)"
+              width={16}
+              data-tooltip-id="plan-warning-tooltip"
+              data-tooltip-content="Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes."
+            />
+            <Tooltip className={styles.tooltip} id="plan-warning-tooltip" />
           </Text>
         </div>
       </section>
@@ -315,7 +325,3 @@ function Checkout() {
 }
 
 export { Checkout };
-
-/*
-Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes.
-*/

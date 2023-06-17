@@ -50,3 +50,11 @@
   margin-top: 1.8rem;
   color: var(--color_black);
 }
+
+.icon {
+  cursor: help;
+}
+
+.tooltip {
+  max-width: 12rem;
+}
