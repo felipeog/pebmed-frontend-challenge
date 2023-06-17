@@ -58,7 +58,9 @@ function SuccesfulCheckout() {
       return null;
     }
 
-    return ` | ${formatBrl(finalPrice / installment.value)}`;
+    const installmentPrice = formatBrl(finalPrice / installment.value);
+
+    return ` | ${installment.value}x ${installmentPrice}`;
   }
 
   return (
