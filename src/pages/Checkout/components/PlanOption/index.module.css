@@ -1,0 +1,36 @@
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  border: var(--border_gray);
+  border-radius: var(--border_radius);
+  cursor: pointer;
+  height: 6.2rem;
+  transition: var(--transition_duration);
+}
+
+.selected,
+.option:hover {
+  border-color: var(--color_primary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  grid-area: 0.2rem;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.percentage {
+  margin-left: 0.4rem;
+}
+
+.installments {
+  min-height: 0.9rem;
+  color: var(--color_secondary);
+}

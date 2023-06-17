@@ -11,10 +11,12 @@ import { formatBrl } from "utils/formatBrl";
 import { Button } from "components/Button";
 import { Heading } from "components/Heading";
 import { Text } from "components/Text";
+import { Icon } from "components/Icon";
 import { Chip } from "components/Chip";
 import { Input } from "components/Input";
 import { Select } from "components/Select";
 import { CreditCards } from "./components/CreditCards";
+import { PlanOption } from "./components/PlanOption";
 import styles from "./index.module.css";
 
 interface IFormValues {
@@ -78,7 +80,16 @@ function Checkout() {
     return [];
   }, [selectedPlan]);
 
-  // TODO: type this correctly
+  const selectedInstallment = useMemo(() => {
+    if (installments) {
+      return installmentsOptions.find(
+        (option) => option.value === Number(installments)
+      );
+    }
+
+    return null;
+  }, [installments, installmentsOptions]);
+
   function onValid(data: IFormValues) {
     subscribe.mutate({
       couponCode: data.coupon || null,
@@ -159,6 +170,10 @@ function Checkout() {
     event: ChangeEvent<HTMLSelectElement>
   ) {
     setValue("installments", event.target.value, { shouldValidate: true });
+  }
+
+  function getPlanOptionClickHandler(plan: IPlan) {
+    return () => setSelectedPlan(plan);
   }
 
   if (plansResult.isLoading || subscribe.isLoading) {
@@ -272,9 +287,35 @@ function Checkout() {
           <Heading tag="h4">Confira o seu plano:</Heading>
           <Chip variation="outlined">fulano@cicrano.com.br</Chip>
         </header>
+
+        <div>
+          <ul className={styles.planList}>
+            {plansResult.data?.map((plan) => {
+              return (
+                <li key={plan.id}>
+                  <PlanOption
+                    plan={plan}
+                    isSelected={plan.id === selectedPlan?.id}
+                    installmentsDescription={selectedInstallment?.label}
+                    onClick={getPlanOptionClickHandler(plan)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+
+          <Text className={styles.planWarning} variation="footnote">
+            Sobre a cobrança{" "}
+            <Icon name="QuestionMark" fill="var(--color_black)" width={16} />
+          </Text>
+        </div>
       </section>
     </main>
   );
 }
 
 export { Checkout };
+
+/*
+Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes.
+*/
