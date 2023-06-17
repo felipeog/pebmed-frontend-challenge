@@ -68,6 +68,19 @@ select {
   font-family: var(--font_family);
 }
 
+a {
+  text-decoration: none;
+  color: var(--color_primary);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--color_gray_4);
+}
+
 /* animation */
 @keyframes hover-opacity {
   from {
