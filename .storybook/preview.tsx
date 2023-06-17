@@ -1,6 +1,6 @@
 import React from "react";
 import type { Preview } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 import { ThemeProvider } from "../src/theme/ThemeProvider";
 
@@ -17,9 +17,9 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <ThemeProvider>
-        <BrowserRouter>
+        <MemoryRouter>
           <Story />
-        </BrowserRouter>
+        </MemoryRouter>
       </ThemeProvider>
     ),
   ],
