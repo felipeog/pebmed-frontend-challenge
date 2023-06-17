@@ -31,7 +31,7 @@ function PlanOption({
       return null;
     }
 
-    if (isSelected && !installmentsDescription) {
+    if (!installmentsDescription) {
       return "Selecione o número de parcelas";
     }
 
