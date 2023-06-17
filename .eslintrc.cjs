@@ -9,6 +9,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
     "plugin:@tanstack/eslint-plugin-query/recommended",
+    "plugin:cypress/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
