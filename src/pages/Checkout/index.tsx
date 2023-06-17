@@ -58,10 +58,6 @@ function Checkout() {
     },
   });
 
-  const { register, handleSubmit, formState, setValue, watch } =
-    subscriptionForm;
-  const installments = watch("installments");
-
   const installmentsOptions = useMemo(() => {
     if (selectedPlan?.splittable) {
       return Array(selectedPlan.installments - 1)
@@ -82,15 +78,12 @@ function Checkout() {
     return [];
   }, [selectedPlan]);
 
-  const selectedInstallment = useMemo(() => {
-    if (installments) {
-      return installmentsOptions.find(
-        (option) => option.value === Number(installments)
-      );
-    }
-
-    return null;
-  }, [installments, installmentsOptions]);
+  const { register, handleSubmit, formState, setValue, watch } =
+    subscriptionForm;
+  const installments = watch("installments");
+  const selectedInstallment = installmentsOptions.find(
+    (option) => option.value === Number(installments)
+  );
 
   function onValid(data: IFormValues) {
     subscribe.mutate({
@@ -101,7 +94,7 @@ function Checkout() {
       creditCardHolder: data.name,
       creditCardNumber: data.number.replace(/\D/g, ""),
       gateway: "iugu",
-      installments: Number(data.installments),
+      installments: Number(data.installments) || 1,
       offerId: 18,
       userId: 1,
     });

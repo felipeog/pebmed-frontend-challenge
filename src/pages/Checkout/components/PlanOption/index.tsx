@@ -32,7 +32,7 @@ function PlanOption({
     }
 
     if (isSelected && !installmentsDescription) {
-      return "Selecione a quantidade de parcelas";
+      return "Selecione o número de parcelas";
     }
 
     return installmentsDescription;
