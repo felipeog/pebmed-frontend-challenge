@@ -8,7 +8,15 @@ import { Chip } from "components/Chip";
 import { Text } from "components/Text";
 
 interface IPlanOptionProps {
-  plan: IPlan;
+  plan: Pick<
+    IPlan,
+    | "splittable"
+    | "title"
+    | "description"
+    | "fullPrice"
+    | "discountAmmount"
+    | "discountPercentage"
+  >;
   className?: string;
   isSelected?: boolean;
   installmentsDescription?: string;
