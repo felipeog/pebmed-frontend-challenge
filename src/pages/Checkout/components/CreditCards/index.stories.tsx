@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CreditCards } from "./";
+import { CreditCards } from "pages/Checkout/components/CreditCards";
 
 const meta = {
   title: "Page/Checkout/CreditCards",
