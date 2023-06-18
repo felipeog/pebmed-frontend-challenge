@@ -1,5 +1,6 @@
 .successfulCheckout {
-  width: 21rem;
+  width: 100%;
+  max-width: 21rem;
   margin: 0 auto;
 }
 
@@ -31,11 +32,6 @@
 
 .planCard {
   display: flex;
-  flex-grow: 0;
-  flex-shrink: 0;
-  justify-content: space-between;
-  align-items: center;
-  text-align: right;
 }
 
 .planIcon {
@@ -82,4 +78,25 @@
 
 .navigateLink {
   font: var(--text_small_bold);
+}
+
+/* bigger screen */
+@media screen and (min-width: 425px) {
+  .planCard {
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+  }
+}
+
+/* smaller screen */
+@media screen and (max-width: 424px) {
+  .planCard {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
 }
