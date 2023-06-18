@@ -92,6 +92,19 @@ a:active {
   }
 }
 
+/* responsive */
+@media screen and (max-width: 599px) {
+  :root {
+    /* decrease headings size */
+    --heading_1: normal normal 400 2.25rem/1 var(--font_family);
+    --heading_2: normal normal 400 1.75rem/1 var(--font_family);
+    --heading_3: normal normal 400 1.25rem/1 var(--font_family);
+    --heading_4: normal normal 400 1rem/1 var(--font_family);
+    --heading_5: normal normal 400 0.75rem/1 var(--font_family);
+    --heading_6: normal normal 400 0.5rem/1 var(--font_family);
+  }
+}
+
 /* react-toastify overrides */
 .Toastify__toast-container .Toastify__toast {
   font-family: var(--font_family);
