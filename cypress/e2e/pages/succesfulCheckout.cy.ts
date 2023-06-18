@@ -2,38 +2,13 @@
 
 describe("successful checkout", () => {
   const mockSubscription = {
-    plan: {
-      id: 0,
-      storeId: "id",
-      title: "Title",
-      description: "Description",
-      caption: "Caption",
-      fullPrice: 100,
-      discountAmmount: 10,
-      discountPercentage: 0.1,
-      periodLabel: "Period Label",
-      period: "Period",
-      discountCouponCode: null,
-      order: 0,
-      priority: 0,
-      gateway: "Gateway",
-      splittable: true,
-      installments: 3,
-      acceptsCoupon: true,
-    },
-    installment: {
-      label: "R$ 90,00 | 3x R$ 30,00",
-      value: 3,
-    },
-    form: {
-      number: "1234 1234 1234 1234",
-      expiration: "12/12",
-      code: "123",
-      name: "USUARIO",
-      cpf: "123.123.123-12",
-      coupon: "1234",
-      installments: "3",
-    },
+    fullPrice: 100,
+    discountAmmount: 10,
+    splittable: true,
+    title: "Title",
+    description: "Description",
+    installments: 3,
+    cpf: "123.123.123-12",
   };
 
   beforeEach(() => {
@@ -60,12 +35,10 @@ describe("successful checkout", () => {
       "have.text",
       "Sua assinatura foi realizada com sucesso."
     );
-    cy.contains(
-      `${mockSubscription.plan.title} | ${mockSubscription.plan.description}`
-    );
-    cy.contains(mockSubscription.installment.label);
+    cy.contains(`${mockSubscription.title} | ${mockSubscription.description}`);
+    cy.contains(mockSubscription.installments);
     cy.contains("usuario@email.com.br");
-    cy.contains(mockSubscription.form.cpf);
+    cy.contains(mockSubscription.cpf);
     cy.contains("Gerenciar assinatura");
     cy.contains("Ir para a Home");
   });

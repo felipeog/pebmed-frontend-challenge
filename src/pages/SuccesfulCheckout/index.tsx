@@ -12,21 +12,13 @@ import { formatBrl } from "utils/formatBrl";
 import { Button } from "components/Button";
 import styles from "./index.module.css";
 
-interface ISubscriptionState {
-  plan: IPlan;
-  installment: {
-    label: string;
-    value: number;
-  };
-  form: {
-    number: string;
-    expiration: string;
-    code: string;
-    name: string;
-    cpf: string;
-    coupon: string;
-    installments: string;
-  };
+interface ISubscriptionState
+  extends Pick<
+    IPlan,
+    "fullPrice" | "discountAmmount" | "splittable" | "title" | "description"
+  > {
+  installments: number;
+  cpf: string;
 }
 
 function SuccesfulCheckout() {
@@ -45,22 +37,21 @@ function SuccesfulCheckout() {
     return null;
   }
 
-  const { form, installment, plan } = location.state
-    .subscription as ISubscriptionState;
-  const finalPrice = plan.fullPrice - plan.discountAmmount;
+  const subscription = location.state.subscription as ISubscriptionState;
+  const finalPrice = subscription.fullPrice - subscription.discountAmmount;
 
   function handleHomeButtonClick() {
     navigate("/");
   }
 
   function getInstallmentsText() {
-    if (!plan.splittable) {
+    if (!subscription.splittable) {
       return null;
     }
 
-    const installmentPrice = formatBrl(finalPrice / installment.value);
+    const installmentPrice = formatBrl(finalPrice / subscription.installments);
 
-    return ` | ${installment.value}x ${installmentPrice}`;
+    return ` | ${subscription.installments}x ${installmentPrice}`;
   }
 
   return (
@@ -90,7 +81,7 @@ function SuccesfulCheckout() {
 
             <div className={styles.planText}>
               <Text>
-                {plan.title} | {plan.description}
+                {subscription.title} | {subscription.description}
               </Text>
               <Text variation="small">
                 {formatBrl(finalPrice)}
@@ -106,7 +97,7 @@ function SuccesfulCheckout() {
             </Text>
             <Text className={styles.userRow} variation="small">
               <span className={styles.label}>CPF</span>{" "}
-              <span className={styles.value}>{form.cpf}</span>
+              <span className={styles.value}>{subscription.cpf}</span>
             </Text>
           </div>
         </Card>

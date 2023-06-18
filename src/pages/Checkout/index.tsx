@@ -56,15 +56,19 @@ function Checkout() {
     onError: (error: Error) => {
       console.error("Checkout @ subscribre >>>>>", error);
     },
-    onSuccess: (data: ISubscription) => {
-      console.log("🚀 ~ data:", data); // it's always the same
+    onSuccess: (_data: ISubscription) => {
+      // not using data as it's always the same
 
       navigate("/checkout/success", {
         state: {
           subscription: {
-            plan: selectedPlan,
-            installment: selectedInstallment,
-            form: subscriptionForm.getValues(),
+            fullPrice: selectedPlan?.fullPrice,
+            discountAmmount: selectedPlan?.discountAmmount,
+            splittable: selectedPlan?.splittable,
+            title: selectedPlan?.title,
+            description: selectedPlan?.description,
+            installments: selectedInstallment?.value,
+            cpf: subscriptionForm.getValues().cpf,
           },
         },
       });
