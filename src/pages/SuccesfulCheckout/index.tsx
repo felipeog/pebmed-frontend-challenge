@@ -72,8 +72,7 @@ function SuccesfulCheckout() {
 
         <Heading tag="h4">Parabéns!</Heading>
         <Text className={styles.headerText}>
-          Sua assinatura foi realizada
-          <br />
+          Sua assinatura foi realizada <br />
           com sucesso.
         </Text>
       </header>
