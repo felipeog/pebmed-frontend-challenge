@@ -1,6 +1,8 @@
 # PEBMED Whitebook - Frontend challenge
 
-Please, check the [Wiki](https://github.com/felipeog/pebmed-frontend-challenge/wiki) tab for more information.
+📖 Please, check the [Wiki](https://github.com/felipeog/pebmed-frontend-challenge/wiki) tab for more information.
+
+🪨 You can also check the project's [milestones](https://github.com/felipeog/pebmed-frontend-challenge/milestones).
 
 ## How to run
 
