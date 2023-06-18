@@ -4,7 +4,7 @@ import subscriptionSplittable from "../../fixtures/subscriptionSplittable.json";
 import subscriptionNonSplittable from "../../fixtures/subscriptionNonSplittable.json";
 
 describe("/checkout/success - success", () => {
-  it.only("should render splittable subscription", () => {
+  it("should render splittable subscription", () => {
     cy.visit("/", {
       // https://github.com/cypress-io/cypress/discussions/19917
       onBeforeLoad(window) {
@@ -34,7 +34,7 @@ describe("/checkout/success - success", () => {
     cy.contains("Ir para a Home");
   });
 
-  it.only("should render non-splittable subscription", () => {
+  it("should render non-splittable subscription", () => {
     cy.visit("/", {
       // https://github.com/cypress-io/cypress/discussions/19917
       onBeforeLoad(window) {
