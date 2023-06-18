@@ -1,24 +1,23 @@
 import { ChangeEvent, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldErrors, useForm } from "react-hook-form";
-import { Tooltip } from "react-tooltip";
 import { toast } from "react-toastify";
-
+import { Tooltip } from "react-tooltip";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-import { IPlan } from "types/IPlan";
-import { ISubscription } from "types/ISubscription";
-import * as api from "services/api";
-import { formatBrl } from "utils/formatBrl";
 import { Button } from "components/Button";
-import { Heading } from "components/Heading";
-import { Text } from "components/Text";
-import { Icon } from "components/Icon";
 import { Chip } from "components/Chip";
+import { Heading } from "components/Heading";
+import { Icon } from "components/Icon";
 import { Input } from "components/Input";
 import { Select } from "components/Select";
+import { Text } from "components/Text";
 import { EMAIL_MOCK } from "consts/emailMock";
+import * as api from "services/api";
+import { IPlan } from "types/IPlan";
+import { ISubscription } from "types/ISubscription";
+import { formatBrl } from "utils/formatBrl";
 import { CreditCards } from "./components/CreditCards";
 import { PlanOption } from "./components/PlanOption";
 import styles from "./index.module.css";

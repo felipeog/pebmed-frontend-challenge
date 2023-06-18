@@ -1,6 +1,6 @@
 import React from "react";
-import type { Preview } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
+import type { Preview } from "@storybook/react";
 
 import { ThemeProvider } from "../src/theme/ThemeProvider";
 

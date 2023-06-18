@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
+import { Button } from "components/Button";
+import { Card } from "components/Card";
+import { Heading } from "components/Heading";
+import { Icon } from "components/Icon";
+import { Text } from "components/Text";
 import { EMAIL_MOCK } from "consts/emailMock";
 import { IPlan } from "types/IPlan";
-import { Icon } from "components/Icon";
-import { Heading } from "components/Heading";
-import { Text } from "components/Text";
-import { Card } from "components/Card";
 import { formatBrl } from "utils/formatBrl";
-import { Button } from "components/Button";
 import styles from "./index.module.css";
 
 interface ISubscriptionState

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { HomeHeader } from "./";
+import { HomeHeader } from "router/HomeHeader";
 
 const meta = {
   title: "Router/HomeHeader",

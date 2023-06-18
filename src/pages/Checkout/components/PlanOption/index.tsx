@@ -1,11 +1,11 @@
 import clsx from "clsx";
 
-import { IPlan } from "types/IPlan";
-import styles from "./index.module.css";
 import { Checkbox } from "components/Checkbox";
-import { formatBrl } from "utils/formatBrl";
 import { Chip } from "components/Chip";
 import { Text } from "components/Text";
+import { IPlan } from "types/IPlan";
+import { formatBrl } from "utils/formatBrl";
+import styles from "./index.module.css";
 
 interface IPlanOptionProps {
   plan: Pick<

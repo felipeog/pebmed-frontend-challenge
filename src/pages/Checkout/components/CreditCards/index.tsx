@@ -4,8 +4,8 @@ import clsx from "clsx";
 import CreditCardsOne from "assets/images/credit-cards-215w.png";
 import CreditCardsOneAndAHalf from "assets/images/credit-cards-323w.png";
 import CreditCardsTwo from "assets/images/credit-cards-430w.png";
-import { Text } from "components/Text";
 import { Icon } from "components/Icon";
+import { Text } from "components/Text";
 import styles from "./index.module.css";
 
 function CreditCards({ className }: ComponentProps<"div">) {
