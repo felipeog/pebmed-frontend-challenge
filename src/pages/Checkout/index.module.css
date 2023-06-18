@@ -1,10 +1,5 @@
 .checkout {
   display: flex;
-  justify-content: space-between;
-}
-
-.column {
-  width: 330px;
 }
 
 .header {
@@ -23,10 +18,9 @@
 }
 
 .twoInputs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.9rem;
-  flex-grow: 0;
-  flex-shrink: 0;
 }
 
 .submit {
@@ -57,4 +51,30 @@
 
 .tooltip {
   max-width: 12rem;
+}
+
+/* bigger screen */
+@media screen and (min-width: 768px) {
+  .checkout {
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  .column {
+    width: 330px;
+  }
+}
+
+/* smaller screen */
+@media screen and (max-width: 767px) {
+  .checkout {
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .column {
+    width: 100%;
+    max-width: 400px;
+  }
 }

@@ -207,6 +207,43 @@ function Checkout() {
     <main className={clsx("Checkout", styles.checkout)}>
       <section className={styles.column}>
         <header className={styles.header}>
+          <Heading tag="h4">Confira o seu plano:</Heading>
+          <Chip variation="outlined">{EMAIL_MOCK}</Chip>
+        </header>
+
+        <div>
+          <ul className={styles.planList}>
+            {plansResult.data?.map((plan) => {
+              return (
+                <li key={plan.id}>
+                  <PlanOption
+                    plan={plan}
+                    isSelected={plan.id === selectedPlan?.id}
+                    installmentsDescription={selectedInstallment?.label}
+                    onClick={getPlanOptionClickHandler(plan)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+
+          <Text className={styles.planWarning} variation="footnote">
+            Sobre a cobrança{" "}
+            <Icon
+              className={styles.icon}
+              name="QuestionMark"
+              fill="var(--color_black)"
+              width={16}
+              data-tooltip-id="plan-warning-tooltip"
+              data-tooltip-content="Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes."
+            />
+            <Tooltip className={styles.tooltip} id="plan-warning-tooltip" />
+          </Text>
+        </div>
+      </section>
+
+      <section className={styles.column}>
+        <header className={styles.header}>
           <Heading tag="h4">Estamos quase lá!</Heading>
           <Text>Insira seus dados de pagamento abaixo:</Text>
         </header>
@@ -319,43 +356,6 @@ function Checkout() {
             Finalizar pagamento
           </Button>
         </form>
-      </section>
-
-      <section className={styles.column}>
-        <header className={styles.header}>
-          <Heading tag="h4">Confira o seu plano:</Heading>
-          <Chip variation="outlined">{EMAIL_MOCK}</Chip>
-        </header>
-
-        <div>
-          <ul className={styles.planList}>
-            {plansResult.data?.map((plan) => {
-              return (
-                <li key={plan.id}>
-                  <PlanOption
-                    plan={plan}
-                    isSelected={plan.id === selectedPlan?.id}
-                    installmentsDescription={selectedInstallment?.label}
-                    onClick={getPlanOptionClickHandler(plan)}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-
-          <Text className={styles.planWarning} variation="footnote">
-            Sobre a cobrança{" "}
-            <Icon
-              className={styles.icon}
-              name="QuestionMark"
-              fill="var(--color_black)"
-              width={16}
-              data-tooltip-id="plan-warning-tooltip"
-              data-tooltip-content="Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes."
-            />
-            <Tooltip className={styles.tooltip} id="plan-warning-tooltip" />
-          </Text>
-        </div>
       </section>
     </main>
   );
