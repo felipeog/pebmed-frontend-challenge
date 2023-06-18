@@ -1,17 +1,10 @@
 /// <reference types="cypress" />
 
-describe("/checkout/success - success", () => {
-  const mockSubscription = {
-    fullPrice: 100,
-    discountAmmount: 10,
-    splittable: true,
-    title: "Title",
-    description: "Description",
-    installments: 3,
-    cpf: "123.123.123-12",
-  };
+import subscriptionSplittable from "../../fixtures/subscriptionSplittable.json";
+import subscriptionNonSplittable from "../../fixtures/subscriptionNonSplittable.json";
 
-  beforeEach(() => {
+describe("/checkout/success - success", () => {
+  it.only("should render splittable subscription", () => {
     cy.visit("/", {
       // https://github.com/cypress-io/cypress/discussions/19917
       onBeforeLoad(window) {
@@ -19,7 +12,7 @@ describe("/checkout/success - success", () => {
           {
             // to reflect on the react router state, the data must be put in the usr object
             usr: {
-              subscription: mockSubscription,
+              subscription: subscriptionSplittable,
             },
           },
           "Successful Checkout",
@@ -27,18 +20,46 @@ describe("/checkout/success - success", () => {
         );
       },
     });
-  });
 
-  it("should render text", () => {
     cy.contains("Parabéns!");
     cy.get("header p").should(
       "have.text",
       "Sua assinatura foi realizada com sucesso."
     );
-    cy.contains(`${mockSubscription.title} | ${mockSubscription.description}`);
-    cy.contains(mockSubscription.installments);
+    cy.contains("Title | Description");
+    cy.contains("R$ 90,00 | 3x R$ 30,00");
     cy.contains("usuario@email.com.br");
-    cy.contains(mockSubscription.cpf);
+    cy.contains("123.123.123-12");
+    cy.contains("Gerenciar assinatura");
+    cy.contains("Ir para a Home");
+  });
+
+  it.only("should render non-splittable subscription", () => {
+    cy.visit("/", {
+      // https://github.com/cypress-io/cypress/discussions/19917
+      onBeforeLoad(window) {
+        window.history.pushState(
+          {
+            // to reflect on the react router state, the data must be put in the usr object
+            usr: {
+              subscription: subscriptionNonSplittable,
+            },
+          },
+          "Successful Checkout",
+          "/checkout/success"
+        );
+      },
+    });
+
+    cy.contains("Parabéns!");
+    cy.get("header p").should(
+      "have.text",
+      "Sua assinatura foi realizada com sucesso."
+    );
+    cy.contains("Title | Description");
+    cy.contains("R$ 90,00");
+    cy.contains("usuario@email.com.br");
+    cy.contains("123.123.123-12");
     cy.contains("Gerenciar assinatura");
     cy.contains("Ir para a Home");
   });

@@ -1,37 +1,14 @@
 /// <reference types="cypress" />
 
-const BASE_URL = "https://private-0ced4-pebmeddesafiofrontend.apiary-mock.com";
+import { baseUrl as API_BASE_URL } from "../../../src/services/api";
+import checkoutInput from "../../fixtures/checkoutInput.json";
+import planSplittable from "../../fixtures/planSplittable.json";
+import planNonSplittable from "../../fixtures/planNonSplittable.json";
 
 describe("/checkout - success", () => {
-  const mockPlan = {
-    id: 0,
-    storeId: "id",
-    title: "Title",
-    description: "Description",
-    caption: "Caption",
-    fullPrice: 100,
-    discountAmmount: 10,
-    discountPercentage: 0.1,
-    periodLabel: "Period Label",
-    period: "Period",
-    discountCouponCode: null,
-    order: 0,
-    priority: 0,
-    gateway: "Gateway",
-    splittable: null, // override this
-    installments: null, // override this
-    acceptsCoupon: false,
-  };
-
   it("should render splittable form", () => {
-    cy.intercept(`${BASE_URL}/offer`, (req) => {
-      req.reply([
-        {
-          ...mockPlan,
-          splittable: true,
-          installments: 3,
-        },
-      ]);
+    cy.intercept(`${API_BASE_URL}/offer`, (req) => {
+      req.reply([planSplittable]);
     });
     cy.visit("/checkout");
 
@@ -47,14 +24,8 @@ describe("/checkout - success", () => {
   });
 
   it("should render non-splittable form", () => {
-    cy.intercept(`${BASE_URL}/offer`, (req) => {
-      req.reply([
-        {
-          ...mockPlan,
-          splittable: false,
-          installments: 1,
-        },
-      ]);
+    cy.intercept(`${API_BASE_URL}/offer`, (req) => {
+      req.reply([planNonSplittable]);
     });
     cy.visit("/checkout");
 
@@ -71,7 +42,7 @@ describe("/checkout - success", () => {
 
 describe("/checkout - error", () => {
   it("should render plans error", () => {
-    cy.intercept(`${BASE_URL}/offer`, (req) => {
+    cy.intercept(`${API_BASE_URL}/offer`, (req) => {
       req.reply({
         statusCode: 500,
       });
@@ -85,32 +56,21 @@ describe("/checkout - error", () => {
   });
 
   it("should render subscription error", () => {
-    const checkout = {
-      number: "1234123412341234",
-      expiration: "1212",
-      code: "123",
-      name: "usuario",
-      cpf: "12312312312",
-      coupon: "1234",
-      installments: "12",
-      plan: "Premium Anual | Parcelado",
-    };
-
-    cy.intercept(`${BASE_URL}/subscription`, (req) => {
+    cy.intercept(`${API_BASE_URL}/subscription`, (req) => {
       req.reply({
         statusCode: 500,
       });
     });
     cy.visit("/checkout");
 
-    cy.get('input[name="number"]').type(checkout.number);
-    cy.get('input[name="expiration"]').type(checkout.expiration);
-    cy.get('input[name="code"]').type(checkout.code);
-    cy.get('input[name="name"]').type(checkout.name);
-    cy.get('input[name="cpf"]').type(checkout.cpf);
-    cy.get('input[name="coupon"]').type(checkout.coupon);
-    cy.get('select[name="installments"]').select(checkout.installments);
-    cy.contains(checkout.plan).click();
+    cy.get('input[name="number"]').type(checkoutInput.number);
+    cy.get('input[name="expiration"]').type(checkoutInput.expiration);
+    cy.get('input[name="code"]').type(checkoutInput.code);
+    cy.get('input[name="name"]').type(checkoutInput.name);
+    cy.get('input[name="cpf"]').type(checkoutInput.cpf);
+    cy.get('input[name="coupon"]').type(checkoutInput.coupon);
+    cy.get('select[name="installments"]').select(checkoutInput.installments);
+    cy.contains(checkoutInput.plan).click();
     cy.contains("Finalizar pagamento").click();
     cy.contains(
       "Ocorreu um erro. Atualize a página ou tente novamente mais tarde."
