@@ -1,4 +1,5 @@
 .outlet {
   max-width: 870px;
-  margin: 4rem auto;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
