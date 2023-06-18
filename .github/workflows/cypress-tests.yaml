@@ -1,0 +1,30 @@
+name: Cypress tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  component:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          component: true
+
+  e2e:
+    runs-on: ubuntu-22.04
+    needs: component
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          spec: cypress/e2e/pages/*.cy.ts
+          build: npm run build
+          start: npm run dev
