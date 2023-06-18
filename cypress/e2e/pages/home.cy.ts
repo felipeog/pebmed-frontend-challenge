@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("home", () => {
+describe("/ - success", () => {
   beforeEach(() => {
     cy.visit("/");
   });

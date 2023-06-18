@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("successful checkout", () => {
+describe("/checkout/success - success", () => {
   const mockSubscription = {
     fullPrice: 100,
     discountAmmount: 10,
@@ -50,6 +50,13 @@ describe("successful checkout", () => {
 
   it("should redirect to home (Ir para a Home)", () => {
     cy.contains("Ir para a Home").click();
+    cy.location("pathname").should("eq", "/");
+  });
+});
+
+describe("/checkout/success - error", () => {
+  it("should redirect to home when subscription state is not present", () => {
+    cy.visit("/checkout/success");
     cy.location("pathname").should("eq", "/");
   });
 });
