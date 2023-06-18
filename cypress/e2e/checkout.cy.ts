@@ -22,10 +22,6 @@ describe("checkout", () => {
     acceptsCoupon: false,
   };
 
-  beforeEach(() => {
-    cy.visit("/checkout");
-  });
-
   it("should render splittable form", () => {
     cy.intercept(`${baseUrl}/offer`, (req) => {
       req.reply([
@@ -36,6 +32,7 @@ describe("checkout", () => {
         },
       ]);
     });
+    cy.visit("/checkout");
 
     cy.contains("Selecione o número de parcelas").should("be.visible");
     cy.get('input[name="number"]').should("be.visible");
@@ -58,6 +55,7 @@ describe("checkout", () => {
         },
       ]);
     });
+    cy.visit("/checkout");
 
     cy.contains("Selecione o número de parcelas").should("not.exist");
     cy.get('input[name="number"]').should("be.visible");
