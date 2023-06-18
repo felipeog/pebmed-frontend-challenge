@@ -1,0 +1,9 @@
+{
+  "fullPrice": 100,
+  "discountAmmount": 10,
+  "splittable": false,
+  "title": "Title",
+  "description": "Description",
+  "installments": null,
+  "cpf": "123.123.123-12"
+}

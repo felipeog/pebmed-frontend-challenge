@@ -1,5 +1,6 @@
 import { ISubscriptionBody } from "types/ISubscriptionBody";
 
+// this could be an env var
 const baseUrl = "https://private-0ced4-pebmeddesafiofrontend.apiary-mock.com";
 
 async function fetchPlans() {
@@ -28,4 +29,4 @@ async function sendSubscription(data: ISubscriptionBody) {
   return response.json();
 }
 
-export { fetchPlans, sendSubscription };
+export { baseUrl, fetchPlans, sendSubscription };
