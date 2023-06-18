@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Layout } from "router/Layout";
-import { Home } from "pages/Home";
 import { Checkout } from "pages/Checkout";
+import { Home } from "pages/Home";
 import { SuccesfulCheckout } from "pages/SuccesfulCheckout";
+import { Layout } from "router/Layout";
 
 function Router() {
   return (
