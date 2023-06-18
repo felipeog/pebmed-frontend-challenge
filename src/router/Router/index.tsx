@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
+import { Text } from "components/Text";
 import { Checkout } from "pages/Checkout";
 import { Home } from "pages/Home";
 import { SuccesfulCheckout } from "pages/SuccesfulCheckout";
@@ -12,7 +13,7 @@ function Router() {
         <Route index element={<Home />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="checkout/success" element={<SuccesfulCheckout />} />
-        <Route path="*" element={<p>not found</p>} />
+        <Route path="*" element={<Text>404 - Página não encontrada</Text>} />
       </Route>
     </Routes>
   );
