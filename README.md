@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4076fd6f-b6b5-4567-8b2c-7d44c88553dc/deploy-status)](https://app.netlify.com/sites/felipeog-whitebook/deploys)
+
 # PEBMED Whitebook - Frontend challenge
 
 📖 Please, check the [Wiki](https://github.com/felipeog/pebmed-frontend-challenge/wiki) tab for more information.
