@@ -202,7 +202,7 @@ function Checkout() {
               data-tooltip-content="Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes."
             />
           </Text>
-          <Tooltip className={styles.tooltip} id="plan-warning-tooltip" />
+          <Tooltip id="plan-warning-tooltip" />
         </div>
       </section>
 

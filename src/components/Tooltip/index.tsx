@@ -9,6 +9,7 @@ function Tooltip({ style, className, ...props }: ITooltip) {
         borderRadius: "var(--border_radius)",
         padding: "1rem",
         font: "var(--text_footnote)",
+        maxWidth: "12rem",
         ...style,
       }}
       {...props}
