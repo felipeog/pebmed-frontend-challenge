@@ -23,6 +23,10 @@
 }
 
 /* error state */
+.label.error {
+  color: var(--color_secondary);
+}
+
 .select.error,
 .select.error:focus {
   border-bottom-color: var(--color_secondary);

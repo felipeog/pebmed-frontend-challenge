@@ -22,7 +22,12 @@ function Input(
   return (
     <div className={clsx("Input", className, styles.wrapper)}>
       {label && (
-        <label className={styles.label} htmlFor={id}>
+        <label
+          className={clsx(styles.label, {
+            [styles.error]: !isValid,
+          })}
+          htmlFor={id}
+        >
           {label}
         </label>
       )}
