@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import cardValidator from "card-validator";
 import clsx from "clsx";
 
 import { Button } from "components/Button";
@@ -120,15 +121,28 @@ function Checkout() {
     });
   }
 
+  // TODO: move handlers to the utils folder
   function handleNumberInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value
-      .replace(/\D/g, "")
-      .replace(/(\d{4})(\d)/, "$1 $2")
-      .replace(/(\d{4})(\d)/, "$1 $2")
-      .replace(/(\d{4})(\d)/, "$1 $2")
-      .replace(/(.{19})(.+)/, "$1"); // 16 digits + 3 spaces between them
+    const formattedValue = event.target.value.replace(/\D/g, "");
+
+    // TODO: format
+    // const card = cardValidator.number(formattedValue);
+    // const formattedValue = event.target.value
+    //   .replace(/\D/g, "")
+    //   .replace(/(\d{4})(\d)/, "$1 $2")
+    //   .replace(/(\d{4})(\d)/, "$1 $2")
+    //   .replace(/(\d{4})(\d)/, "$1 $2")
+    //   .replace(/(.{19})(.+)/, "$1"); // 16 digits + 3 spaces between them
 
     setValue("number", formattedValue);
+  }
+
+  // TODO: move validators to the utils folder
+  function validateNumber(value: string) {
+    const formattedValue = value.replace(/\D/g, "");
+    const card = cardValidator.number(formattedValue);
+
+    return card.isValid || "Número do cartão inválido";
   }
 
   function handleExpirationInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -256,10 +270,7 @@ function Checkout() {
             <Input
               {...register("number", {
                 required: "Número do cartão é obrigatório",
-                pattern: {
-                  value: /^(\d{4}\s){3}\d{4}$/,
-                  message: "Número do cartão inválido",
-                },
+                validate: validateNumber,
               })}
               id="number"
               label="Número do cartão"
