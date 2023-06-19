@@ -114,9 +114,22 @@ function Checkout() {
     });
   }
 
-  function onInvalid(_errors: FieldErrors<IFormValues>) {
-    toast("Dados inválidos, corrija as entradas destacadas", {
-      toastId: "invalid-form",
+  function onInvalid(errors: FieldErrors<IFormValues>) {
+    const errorsOrder = [
+      "number",
+      "expiration",
+      "code",
+      "name",
+      "cpf",
+      "installments",
+    ];
+    const errorField = errorsOrder.find((name) =>
+      Object.keys(errors).includes(name)
+    ) as keyof FieldErrors<IFormValues>;
+    const error = errors[errorField];
+
+    toast(error?.message, {
+      toastId: error?.message,
     });
   }
 
