@@ -2,6 +2,7 @@
 
 import { baseUrl as API_BASE_URL } from "../../../src/services/api";
 import checkoutInput from "../../fixtures/checkoutInput.json";
+import checkoutInvalidInput from "../../fixtures/checkoutInvalidInput.json";
 import planSplittable from "../../fixtures/planSplittable.json";
 import planNonSplittable from "../../fixtures/planNonSplittable.json";
 
@@ -75,5 +76,68 @@ describe("/checkout - error", () => {
     cy.contains(
       "Ocorreu um erro. Atualize a página ou tente novamente mais tarde."
     ).should("be.visible");
+  });
+});
+
+describe.only("/checkout - form", () => {
+  it("should not accept empty inputs", () => {
+    cy.visit("/checkout");
+
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("Número do cartão é obrigatório").should("be.visible");
+    cy.get('input[name="number"]').type(checkoutInput.number);
+
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("Validade é obrigatória").should("be.visible");
+    cy.get('input[name="expiration"]').type(checkoutInput.expiration);
+
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("CVV é obrigatório").should("be.visible");
+    cy.get('input[name="code"]').type(checkoutInput.code);
+
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("Nome impresso no cartão é obrigatório").should("be.visible");
+    cy.get('input[name="name"]').type(checkoutInput.name);
+
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("CPF é obrigatório").should("be.visible");
+    cy.get('input[name="cpf"]').type(checkoutInput.cpf);
+
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("Número de parcelas é obrigatório").should("be.visible");
+    cy.get('select[name="installments"]').select(checkoutInput.installments);
+
+    cy.contains("Finalizar pagamento").click();
+    cy.location("pathname").should("eq", "/checkout/success");
+  });
+
+  it("should not accept invalid inputs", () => {
+    cy.visit("/checkout");
+
+    cy.get('input[name="number"]').type(checkoutInvalidInput.number);
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("Número do cartão inválido").should("be.visible");
+    cy.get('input[name="number"]').type(checkoutInput.number);
+
+    cy.get('input[name="expiration"]').type(checkoutInvalidInput.expiration);
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("Validade inválida").should("be.visible");
+    cy.get('input[name="expiration"]').type(checkoutInput.expiration);
+
+    cy.get('input[name="code"]').type(checkoutInvalidInput.code);
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("CVV inválido").should("be.visible");
+    cy.get('input[name="code"]').type(checkoutInput.code);
+
+    cy.get('input[name="name"]').type(checkoutInput.name);
+
+    cy.get('input[name="cpf"]').type(checkoutInvalidInput.cpf);
+    cy.contains("Finalizar pagamento").click();
+    cy.contains("CPF inválido").should("be.visible");
+    cy.get('input[name="cpf"]').type(checkoutInput.cpf);
+
+    cy.get('select[name="installments"]').select(checkoutInput.installments);
+    cy.contains("Finalizar pagamento").click();
+    cy.location("pathname").should("eq", "/checkout/success");
   });
 });

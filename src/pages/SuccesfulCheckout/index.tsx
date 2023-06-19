@@ -8,18 +8,9 @@ import { Heading } from "components/Heading";
 import { Icon } from "components/Icon";
 import { Text } from "components/Text";
 import { EMAIL_MOCK } from "consts/emailMock";
-import { IPlan } from "types/IPlan";
+import { ISubscriptionState } from "types/ISubscriptionState";
 import { formatBrl } from "utils/formatBrl";
 import styles from "./index.module.css";
-
-interface ISubscriptionState
-  extends Pick<
-    IPlan,
-    "fullPrice" | "discountAmmount" | "splittable" | "title" | "description"
-  > {
-  installments: number;
-  cpf: string;
-}
 
 function SuccesfulCheckout() {
   const location = useLocation();
@@ -45,7 +36,7 @@ function SuccesfulCheckout() {
   }
 
   function getInstallmentsText() {
-    if (!subscription.splittable) {
+    if (!subscription.splittable || !subscription.installments) {
       return null;
     }
 

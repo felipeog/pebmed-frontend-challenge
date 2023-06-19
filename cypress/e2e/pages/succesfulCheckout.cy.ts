@@ -2,24 +2,25 @@
 
 import subscriptionSplittable from "../../fixtures/subscriptionSplittable.json";
 import subscriptionNonSplittable from "../../fixtures/subscriptionNonSplittable.json";
+import { ISubscriptionState } from "types/ISubscriptionState";
+
+function visitWithSubscriptionState(subscription: ISubscriptionState) {
+  cy.visit("/", {
+    // https://github.com/cypress-io/cypress/discussions/19917
+    onBeforeLoad(window) {
+      window.history.pushState(
+        // to reflect on the react router state, the data must be put in the usr object
+        { usr: { subscription } },
+        "Successful Checkout",
+        "/checkout/success"
+      );
+    },
+  });
+}
 
 describe("/checkout/success - success", () => {
   it("should render splittable subscription", () => {
-    cy.visit("/", {
-      // https://github.com/cypress-io/cypress/discussions/19917
-      onBeforeLoad(window) {
-        window.history.pushState(
-          {
-            // to reflect on the react router state, the data must be put in the usr object
-            usr: {
-              subscription: subscriptionSplittable,
-            },
-          },
-          "Successful Checkout",
-          "/checkout/success"
-        );
-      },
-    });
+    visitWithSubscriptionState(subscriptionSplittable);
 
     cy.contains("Parabéns!");
     cy.get("header p").should(
@@ -35,21 +36,7 @@ describe("/checkout/success - success", () => {
   });
 
   it("should render non-splittable subscription", () => {
-    cy.visit("/", {
-      // https://github.com/cypress-io/cypress/discussions/19917
-      onBeforeLoad(window) {
-        window.history.pushState(
-          {
-            // to reflect on the react router state, the data must be put in the usr object
-            usr: {
-              subscription: subscriptionNonSplittable,
-            },
-          },
-          "Successful Checkout",
-          "/checkout/success"
-        );
-      },
-    });
+    visitWithSubscriptionState(subscriptionNonSplittable);
 
     cy.contains("Parabéns!");
     cy.get("header p").should(
@@ -65,11 +52,15 @@ describe("/checkout/success - success", () => {
   });
 
   it("should redirect to home (Gerenciar assinatura)", () => {
+    visitWithSubscriptionState(subscriptionSplittable);
+
     cy.contains("Gerenciar assinatura").click();
     cy.location("pathname").should("eq", "/");
   });
 
   it("should redirect to home (Ir para a Home)", () => {
+    visitWithSubscriptionState(subscriptionSplittable);
+
     cy.contains("Ir para a Home").click();
     cy.location("pathname").should("eq", "/");
   });

@@ -58,6 +58,7 @@ function Checkout() {
     onSuccess: (_data: ISubscription) => {
       // not using data as it's always the same
 
+      toast.dismiss();
       navigate("/checkout/success", {
         state: {
           subscription: {
@@ -127,7 +128,7 @@ function Checkout() {
       .replace(/(\d{4})(\d)/, "$1 $2")
       .replace(/(.{19})(.+)/, "$1"); // 16 digits + 3 spaces between them
 
-    setValue("number", formattedValue, { shouldDirty: true });
+    setValue("number", formattedValue);
   }
 
   function handleExpirationInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -136,7 +137,7 @@ function Checkout() {
       .replace(/(\d{2})(\d)/, "$1/$2")
       .replace(/(.{5})(.+)/, "$1"); // 4 digits + 1 slash between them
 
-    setValue("expiration", formattedValue, { shouldDirty: true });
+    setValue("expiration", formattedValue);
   }
 
   function handleNameInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -146,7 +147,7 @@ function Checkout() {
       .replace(/(.{178})(.+)/, "$1")
       .toUpperCase();
 
-    setValue("name", formattedValue, { shouldDirty: true });
+    setValue("name", formattedValue);
   }
 
   function handleCodeInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -154,7 +155,7 @@ function Checkout() {
       .replace(/\D/g, "")
       .replace(/(.{3})(.+)/, "$1");
 
-    setValue("code", formattedValue, { shouldDirty: true });
+    setValue("code", formattedValue);
   }
 
   function handleCpfInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -165,7 +166,7 @@ function Checkout() {
       .replace(/(\d{3})(\d{1,2})/, "$1-$2")
       .replace(/(.{14})(.+)/, "$1"); // 11 digits + 2 dots + 1 dash
 
-    setValue("cpf", formattedValue, { shouldDirty: true });
+    setValue("cpf", formattedValue);
   }
 
   function handleCouponInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -173,13 +174,13 @@ function Checkout() {
       .replace(/(.{178})(.+)/, "$1")
       .toUpperCase();
 
-    setValue("coupon", formattedValue, { shouldDirty: true });
+    setValue("coupon", formattedValue);
   }
 
   function handleInstallmentsSelectChange(
     event: ChangeEvent<HTMLSelectElement>
   ) {
-    setValue("installments", event.target.value, { shouldDirty: true });
+    setValue("installments", event.target.value);
     setSelectedInstallment(
       installmentsOptions.find(
         (option) => option.value === Number(event.target.value)
@@ -303,7 +304,7 @@ function Checkout() {
 
             <Input
               {...register("name", {
-                required: "Nome impresso no cartão inválido",
+                required: "Nome impresso no cartão é obrigatório",
               })}
               id="name"
               label="Nome impresso no cartão"
@@ -340,7 +341,7 @@ function Checkout() {
             {Boolean(installmentsOptions?.length) && (
               <Select
                 {...register("installments", {
-                  required: "Número de parcelas inválido",
+                  required: "Número de parcelas é obrigatório",
                 })}
                 id="installments"
                 label="Número de parcelas"
