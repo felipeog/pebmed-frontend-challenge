@@ -10,7 +10,8 @@
 
 ## Live preview
 
-https://felipeog-whitebook.netlify.app
+- App: https://felipeog-whitebook.netlify.app
+- Storybook: https://felipeog-whitebook-storybook.netlify.app
 
 ## How to run
 
