@@ -30,7 +30,12 @@ function Select(
   return (
     <div className={clsx("Select", className, styles.wrapper)}>
       {label && (
-        <label className={styles.label} htmlFor={id}>
+        <label
+          className={clsx(styles.label, {
+            [styles.error]: !isValid,
+          })}
+          htmlFor={id}
+        >
           {label}
         </label>
       )}
