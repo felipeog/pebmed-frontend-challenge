@@ -117,24 +117,24 @@ describe.only("/checkout - form", () => {
     cy.get('input[name="number"]').type(checkoutInvalidInput.number);
     cy.contains("Finalizar pagamento").click();
     cy.contains("Número do cartão inválido").should("be.visible");
-    cy.get('input[name="number"]').type(checkoutInput.number);
+    cy.get('input[name="number"]').clear().type(checkoutInput.number);
 
     cy.get('input[name="expiration"]').type(checkoutInvalidInput.expiration);
     cy.contains("Finalizar pagamento").click();
     cy.contains("Validade inválida").should("be.visible");
-    cy.get('input[name="expiration"]').type(checkoutInput.expiration);
+    cy.get('input[name="expiration"]').clear().type(checkoutInput.expiration);
 
     cy.get('input[name="code"]').type(checkoutInvalidInput.code);
     cy.contains("Finalizar pagamento").click();
     cy.contains("CVV inválido").should("be.visible");
-    cy.get('input[name="code"]').type(checkoutInput.code);
+    cy.get('input[name="code"]').clear().type(checkoutInput.code);
 
     cy.get('input[name="name"]').type(checkoutInput.name);
 
     cy.get('input[name="cpf"]').type(checkoutInvalidInput.cpf);
     cy.contains("Finalizar pagamento").click();
     cy.contains("CPF inválido").should("be.visible");
-    cy.get('input[name="cpf"]').type(checkoutInput.cpf);
+    cy.get('input[name="cpf"]').clear().type(checkoutInput.cpf);
 
     cy.get('select[name="installments"]').select(checkoutInput.installments);
     cy.contains("Finalizar pagamento").click();
