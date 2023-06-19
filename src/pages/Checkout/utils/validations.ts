@@ -1,11 +1,22 @@
 import cardValidator from "card-validator";
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
+const validBrands = [
+  "mastercard",
+  "diners-club",
+  "american-express",
+  "visa",
+  "elo",
+];
+
 export function number(value: string) {
   const formattedValue = value.replace(/\D/g, "");
-  const card = cardValidator.number(formattedValue);
+  const numberVerification = cardValidator.number(formattedValue);
+  const brand = numberVerification.card?.type;
 
-  return card.isValid || "Número do cartão inválido";
+  if (!numberVerification.isValid || !brand || !validBrands.includes(brand)) {
+    return "Número do cartão inválido";
+  }
 }
 
 export function expiration(value: string) {
