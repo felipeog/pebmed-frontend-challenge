@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import cardValidator from "card-validator";
 import clsx from "clsx";
 
 import { Button } from "components/Button";
@@ -21,6 +20,8 @@ import { ISubscription } from "types/ISubscription";
 import { formatBrl } from "utils/formatBrl";
 import { CreditCards } from "./components/CreditCards";
 import { PlanOption } from "./components/PlanOption";
+import * as masks from "./utils/masks";
+import * as validations from "./utils/validations";
 import styles from "./index.module.css";
 
 interface IFormValues {
@@ -43,7 +44,7 @@ function Checkout() {
   const [selectedInstallment, setSelectedInstallment] =
     useState<IInstallmentOption | null>(null);
   const navigate = useNavigate();
-  const subscriptionForm = useForm<IFormValues>();
+  const subscriptionForm = useForm<IFormValues>({ mode: "all" });
   const plansResult = useQuery<IPlan[], Error>({
     queryKey: ["plans"],
     queryFn: api.fetchPlans,
@@ -113,82 +114,17 @@ function Checkout() {
     });
   }
 
-  function onInvalid(errors: FieldErrors<IFormValues>) {
-    const firstError = Object.values(errors)[0];
-
-    toast(firstError.message, {
-      toastId: firstError.message,
+  function onInvalid(_errors: FieldErrors<IFormValues>) {
+    toast("Dados inválidos, corrija as entradas destacadas", {
+      toastId: "invalid-form",
     });
   }
 
-  // TODO: move handlers to the utils folder
-  function handleNumberInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value.replace(/\D/g, "");
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    const name = event.target.name as keyof Omit<IFormValues, "installments">;
+    const mask = masks[name];
 
-    // TODO: format
-    // const card = cardValidator.number(formattedValue);
-    // const formattedValue = event.target.value
-    //   .replace(/\D/g, "")
-    //   .replace(/(\d{4})(\d)/, "$1 $2")
-    //   .replace(/(\d{4})(\d)/, "$1 $2")
-    //   .replace(/(\d{4})(\d)/, "$1 $2")
-    //   .replace(/(.{19})(.+)/, "$1"); // 16 digits + 3 spaces between them
-
-    setValue("number", formattedValue);
-  }
-
-  // TODO: move validators to the utils folder
-  function validateNumber(value: string) {
-    const formattedValue = value.replace(/\D/g, "");
-    const card = cardValidator.number(formattedValue);
-
-    return card.isValid || "Número do cartão inválido";
-  }
-
-  function handleExpirationInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value
-      .replace(/\D/g, "")
-      .replace(/(\d{2})(\d)/, "$1/$2")
-      .replace(/(.{5})(.+)/, "$1"); // 4 digits + 1 slash between them
-
-    setValue("expiration", formattedValue);
-  }
-
-  function handleNameInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value
-      .replace(/[^a-z\s]/gi, "")
-      .replace(/\s{2,}/g, " ")
-      .replace(/(.{178})(.+)/, "$1")
-      .toUpperCase();
-
-    setValue("name", formattedValue);
-  }
-
-  function handleCodeInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value
-      .replace(/\D/g, "")
-      .replace(/(.{3})(.+)/, "$1");
-
-    setValue("code", formattedValue);
-  }
-
-  function handleCpfInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value
-      .replace(/\D/g, "")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
-      .replace(/(.{14})(.+)/, "$1"); // 11 digits + 2 dots + 1 dash
-
-    setValue("cpf", formattedValue);
-  }
-
-  function handleCouponInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const formattedValue = event.target.value
-      .replace(/(.{178})(.+)/, "$1")
-      .toUpperCase();
-
-    setValue("coupon", formattedValue);
+    setValue(name, mask(event.target.value));
   }
 
   function handleInstallmentsSelectChange(
@@ -270,13 +206,13 @@ function Checkout() {
             <Input
               {...register("number", {
                 required: "Número do cartão é obrigatório",
-                validate: validateNumber,
+                validate: validations.number,
+                onChange: handleInputChange,
               })}
               id="number"
               label="Número do cartão"
               type="text"
               placeholder="0000 0000 0000 0000"
-              onChange={handleNumberInputChange}
               isValid={!formState.errors.number?.message}
             />
 
@@ -284,31 +220,25 @@ function Checkout() {
               <Input
                 {...register("expiration", {
                   required: "Validade é obrigatória",
-                  pattern: {
-                    value: /^\d{2}\/\d{2}$/,
-                    message: "Validade inválida",
-                  },
+                  validate: validations.expiration,
+                  onChange: handleInputChange,
                 })}
                 id="expiration"
                 label="Validade"
                 type="text"
                 placeholder="MM/AA"
-                onChange={handleExpirationInputChange}
                 isValid={!formState.errors.expiration?.message}
               />
               <Input
                 {...register("code", {
                   required: "CVV é obrigatório",
-                  pattern: {
-                    value: /^\d{3}$/,
-                    message: "CVV inválido",
-                  },
+                  validate: validations.code,
+                  onChange: handleInputChange,
                 })}
                 id="code"
                 label="CVV"
                 type="text"
                 placeholder="000"
-                onChange={handleCodeInputChange}
                 isValid={!formState.errors.code?.message}
               />
             </div>
@@ -316,36 +246,36 @@ function Checkout() {
             <Input
               {...register("name", {
                 required: "Nome impresso no cartão é obrigatório",
+                validate: validations.name,
+                onChange: handleInputChange,
               })}
               id="name"
               label="Nome impresso no cartão"
               type="text"
               placeholder="Seu nome"
-              onChange={handleNameInputChange}
               isValid={!formState.errors.name?.message}
             />
             <Input
               {...register("cpf", {
                 required: "CPF é obrigatório",
-                pattern: {
-                  value: /^(\d{3}\.){2}\d{3}-\d{2}$/,
-                  message: "CPF inválido",
-                },
+                validate: validations.cpf,
+                onChange: handleInputChange,
               })}
               id="cpf"
               label="CPF"
               type="text"
               placeholder="000.000.000-00"
-              onChange={handleCpfInputChange}
               isValid={!formState.errors.cpf?.message}
             />
             <Input
-              {...register("coupon", { required: false })}
+              {...register("coupon", {
+                required: false,
+                onChange: handleInputChange,
+              })}
               id="coupon"
               label="Cupom"
               type="text"
               placeholder="Insira aqui"
-              onChange={handleCouponInputChange}
               isValid={!formState.errors.coupon?.message}
             />
 
@@ -353,10 +283,10 @@ function Checkout() {
               <Select
                 {...register("installments", {
                   required: "Número de parcelas é obrigatório",
+                  onChange: handleInstallmentsSelectChange,
                 })}
                 id="installments"
                 label="Número de parcelas"
-                onChange={handleInstallmentsSelectChange}
                 options={installmentsOptions}
                 isValid={!formState.errors.installments?.message}
                 isDefaultValue={!selectedInstallment}
