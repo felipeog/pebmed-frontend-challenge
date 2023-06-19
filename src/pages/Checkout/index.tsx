@@ -1,7 +1,6 @@
 import { ChangeEvent, useMemo, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Tooltip } from "react-tooltip";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
@@ -13,6 +12,7 @@ import { Icon } from "components/Icon";
 import { Input } from "components/Input";
 import { Select } from "components/Select";
 import { Text } from "components/Text";
+import { Tooltip } from "components/Tooltip";
 import { EMAIL_MOCK } from "consts/emailMock";
 import * as api from "services/api";
 import { IPlan } from "types/IPlan";
@@ -201,8 +201,8 @@ function Checkout() {
               data-tooltip-id="plan-warning-tooltip"
               data-tooltip-content="Será feito uma pré-autorização no seu cartão e você verá duas cobranças com o valor do plano escolhido por você. Mas não se preocupe! Uma delas será cancelada e você não será cobrado duas vezes."
             />
-            <Tooltip className={styles.tooltip} id="plan-warning-tooltip" />
           </Text>
+          <Tooltip className={styles.tooltip} id="plan-warning-tooltip" />
         </div>
       </section>
 
