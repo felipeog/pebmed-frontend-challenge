@@ -4,7 +4,7 @@
 
 📖 Please, check the [Wiki](https://github.com/felipeog/pebmed-frontend-challenge/wiki) tab for more information.
 
-🪨 You can also check the project's [milestones](https://github.com/felipeog/pebmed-frontend-challenge/milestones).
+🪨 You can also check the project's [milestones](https://github.com/felipeog/pebmed-frontend-challenge/milestones?direction=desc&sort=title&state=open).
 
 ## How to run
 
