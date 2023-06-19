@@ -6,6 +6,10 @@
 
 🪨 You can also check the project's [milestones](https://github.com/felipeog/pebmed-frontend-challenge/milestones?direction=desc&sort=title&state=open).
 
+## Live preview
+
+https://felipeog-whitebook.netlify.app
+
 ## How to run
 
 ### Prerequisites
